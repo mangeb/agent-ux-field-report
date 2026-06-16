@@ -112,6 +112,7 @@ export default function Home() {
             <a href="#agents">Agents</a>
             <a href="#proposal">Chrome</a>
             <a href="#flow">Flow</a>
+            <a href="/present" className="nav-cta">Present ▸</a>
           </div>
         </div>
       </nav>

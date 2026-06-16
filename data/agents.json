@@ -1,0 +1,653 @@
+[
+  {
+    "entity": "Cursor background agents and composer UI",
+    "agent_name": "Cursor Background Agents and Composer UI",
+    "vendor": "Anysphere Inc. (Cursor)",
+    "audience": "Developer / Prosumer ([LLMversus](https://llmversus.com/coding-tools/cursor/background-agents))",
+    "primary_surface": "IDE (Cursor, a fork of VS Code) ([Cursor Documentation](https://docs.cursor.com/en/composer))",
+    "task_lifecycle": "Visualized through a live \"Output Stream\" that logs every tool call (e.g., \"Searching codebase\", \"Running grep\", \"Applying edits\") ([LLMversus](https://llmversus.com/coding-tools/cursor/background-agents)). It uses a step-by-step progress indicator and a chronological timeline of \"Snapshots\" that allows users to roll back the entire project state to any previous point in the agent's run ([Cursor 101 Tutorial](https://cursor101.com/tutorial/learn-cursor-composer)).",
+    "approval_model": "Interactive sessions use a \"checkpoint approval\" model where every file change is presented as a diff for the user to \"Accept\" or \"Reject\" ([Cursor Documentation](https://docs.cursor.com/en/composer), [Cursor 101 Tutorial](https://cursor101.com/tutorial/learn-cursor-composer)). Background Agents operate more autonomously, executing tool calls (read, write, terminal, search) and pausing only when they encounter a blocker or require a specific user decision (\"Paused - needs input\") ([LLMversus](https://llmversus.com/coding-tools/cursor/background-agents)).",
+    "artifacts": "Artifacts are surfaced as an inline \"Diff Gallery\" where changes to multiple files are grouped by category (New, Modified, Deleted) ([Cursor Documentation](https://docs.cursor.com/en/composer)). Each change includes a syntax-highlighted diff (green for additions, red for deletions) and an AI-generated explanation of the reasoning. For Background Agents, summaries can include file-diff images and code snippets, which can also be mirrored to external channels like Slack ([Cursor Docs](https://docs.cursor.com/en/background-agent)).",
+    "multi_agent": "Managed via a dedicated \"Background Agent Sidebar\" or panel that tracks all active and historical runs ([Cursor Docs](https://docs.cursor.com/en/background-agent)). The UI displays a list view where each agent is a row showing the original prompt, elapsed time, step count, premium request cost, and a live status indicator (Running, Paused, Completed, Failed) ([LLMversus](https://llmversus.com/coding-tools/cursor/background-agents)). Users can click into any agent to view a live \"Output Stream\" of tool calls.",
+    "notifications": "Urgent items bubble up through status color changes in the agent panel (e.g., orange/red for \"needs input\" or \"failed\") ([LLMversus](https://llmversus.com/coding-tools/cursor/background-agents)). Notifications can also be routed to external channels like Slack for workspace-wide visibility of agent completions or blockers ([Cursor Docs](https://docs.cursor.com/en/background-agent)).",
+    "ui_patterns": [
+      "Plan-then-execute (iterative sub-tasking)",
+      "Checkpoint Snapshots (auto-save before changes)",
+      "Agent Sidebar/Inbox for background tracking",
+      "Diff Gallery for multi-file reviews",
+      "Context-aware @mentions for files and symbols"
+    ],
+    "visual_description": "The UI consists of a Composer panel (floating or sidebar, Cmd+I) with a text input and a toggle between 'Interactive' and 'Background' modes. The Background Agent panel uses a dashboard-style list view with status badges and timers. File diffs are rendered with standard VS Code syntax highlighting, featuring sticky 'Accept'/'Reject' action bars at the top of each file block. Snapshots are visualized as a restorable timeline within the session history ([YouTube - Cursor 2.0 Walkthrough](https://www.youtube.com/watch?v=uf0vqd9HatY), [Cursor 101 Tutorial](https://cursor101.com/tutorial/learn-cursor-composer)).",
+    "sources": [
+      "https://docs.cursor.com/en/background-agent",
+      "https://docs.cursor.com/en/composer",
+      "https://llmversus.com/coding-tools/cursor/background-agents",
+      "https://cursor101.com/tutorial/learn-cursor-composer",
+      "https://www.youtube.com/watch?v=0ctWRkOqKFc"
+    ]
+  },
+  {
+    "entity": "OpenAI ChatGPT Agent and Operator interface",
+    "agent_name": "ChatGPT Agent (formerly Operator)",
+    "vendor": "OpenAI",
+    "audience": "Prosumer, Team, and Enterprise (available to ChatGPT Plus, Pro, Team, and Business subscribers). ([OpenAI Blog](https://openai.com/index/introducing-chatgpt-agent/))",
+    "primary_surface": "Primarily the ChatGPT web app (chatgpt.com) and the \"Atlas\" managed browser, with support for macOS/Windows desktop apps and mobile (iOS/Android) for monitoring. ([OpenAI/Atlas Docs](https://help.openai.com/en/articles/12628199-using-ask-chatgpt-sidebar-and-chatgpt-agent-on-atlas))",
+    "task_lifecycle": "Visualized through a dual-mode interface: a 'Desktop View' (live video-like stream of the virtual machine) and an 'Activity View' (step-by-step chronological log with reasoning). A status indicator displays current actions (e.g., 'Searching...', 'Filling form...'). ([DEV Community](https://dev.to/proflead/chatgpt-agent-mode-full-walkthrough-1f0m), [Data Studios](https://www.datastudios.org/post/how-to-use-chatgpt-agent-for-task-automation-and-real-productivity-tools-limits-examples-and-bes))",
+    "approval_model": "Hybrid: auto-executes safe browsing/research but employs \"Approval Gates\" for consequential actions (payments, form submissions, sensitive data access). Users can \"Take Over Browser\" to handle logins or CAPTCHAs manually before handing control back to the agent. ([OpenAI Help](https://help.openai.com/en/articles/11752874-chatgpt-agent), [AI Operator](https://www.aioperator.com/blog/chatgpt-agent-mode-your-new-ai-assistant/))",
+    "artifacts": "Artifacts like spreadsheets, presentations, and PDFs are displayed as downloadable files at the end of a task or within the chat transcript. Technical artifacts (code executions, terminal logs) are surfaced in the \"Activity View\" sidebar. ([Data Studios](https://www.datastudios.org/post/how-to-use-chatgpt-agent-for-task-automation-and-real-productivity-tools-limits-examples-and-bes), [Everyday AI](https://www.youreverydayai.com/chatgpt-agent-mode-overview-real-use-cases-and-3-worthwhile-tips/))",
+    "multi_agent": "Managed through a centralized \"Schedules\" dashboard (`chatgpt.com/schedules`) which tracks up to 10 active parallel tasks. Users can spin up multiple \"workers\" in separate chat threads to run concurrently. ([Whop](https://whop.com/blog/chatgpt-scheduling-tasks/), [LinkedIn/Allie Miller](https://www.linkedin.com/posts/alliekmiller_breaking-openai-has-officially-released-activity-7351658369767620608-VJC_))",
+    "notifications": "Urgent status and completion updates bubble up via push notifications (mobile/desktop), email alerts, and in-app badges. Scheduled tasks also trigger a new chat notification when a run finishes. ([Linos AI](https://www.linos.ai/technology/chatgpt-agent-mode-guide-2026-how-to-use-setup/), [OpenAI Help](https://help.openai.com/en/articles/11752874-chatgpt-agent))",
+    "ui_patterns": [
+      "Plan-then-execute: Proposes a summary of steps for user approval before launching the virtual environment.",
+      "Live/Activity Toggle: A three-dot menu switch between a visual 'Desktop View' and a logical 'Activity View'.",
+      "Agent Inbox/Schedules: A centralized dashboard at chatgpt.com/schedules to manage recurring and active runs.",
+      "Connectors: Direct integration with Google Workspace (Gmail, Drive) and Microsoft 365."
+    ],
+    "visual_description": "The interface features a 'Live Desktop' window (often with a blue border) embedded within the chat where users can see a virtual cursor clicking and typing. A sidebar or 'Activity' pane provides a scrollable log of tool calls and reasoning. Suggestion chips for 'Common Tasks' appear at the bottom of the composer. ([AI Operator](https://www.aioperator.com/blog/chatgpt-agent-mode-your-new-ai-assistant/), [YouTube Walkthrough](https://www.youtube.com/watch?v=_9MlXbsYzXQ))",
+    "sources": [
+      "OpenAI: Introducing ChatGPT Agent (July 2025)",
+      "OpenAI Help Center: ChatGPT Agent Guide",
+      "AI Operator: ChatGPT Agent Mode Walkthrough",
+      "Linos AI: Complete Setup Guide 2026"
+    ]
+  },
+  {
+    "entity": "Claude Code by Anthropic management UI",
+    "agent_name": "Claude Code",
+    "vendor": "Anthropic",
+    "audience": "**Developer & Prosumer.** Designed primarily for **professional software engineers** and \"builders\" without deep engineering backgrounds who want to delegate entire features rather than single prompts [Anthropic News](https://www.anthropic.com/news/claude-4), [Anthropic Product](https://www.anthropic.com/product/claude-code). It also serves **Enterprise teams** through managed seats and admin controls [Claude Help Center](https://support.claude.com/en/articles/11845131-use-claude-code-with-your-team-or-enterprise-plan).",
+    "primary_surface": "**Terminal-First, Multi-Surface.** The native interface is a **CLI tool** [Anthropic Product](https://www.anthropic.com/product/claude-code). It also features official **VS Code and JetBrains extensions**, a standalone **Desktop app**, a **Web interface** (with cloud sandboxing), and mobile access via **Remote Control** [Anthropic News](https://www.anthropic.com/news/enabling-claude-code-to-work-more-autonomously), [Anthropic Engineering](https://www.anthropic.com/engineering/claude-code-sandboxing).",
+    "task_lifecycle": "**Interactive Timeline & Plan View.** Tasks are visualized through a **real-time event stream** in the terminal and a **WorkLog timeline** in the management UI [Ccboard](https://ccboard.bruniaux.com). Before execution, Claude generates a **hierarchical implementation plan** that users can browse [Claude Code Dashboard Repo](https://github.com/ek33450505/claude-code-dashboard). Progress is tracked via **daily summaries** and \"Next Step\" suggestions in the project dashboard [YouTube - Project Management Dashboard](https://www.youtube.com/watch?v=X4cFPdzcK7E).",
+    "approval_model": "**Configurable Autonomy.** The system defaults to a **\"cautious\" permission model** where Claude asks for approval before any file edit or shell command [Anthropic](https://www.anthropic.com/product/claude-code). Users can toggle between three modes: **Explore** (read-only), **Ask to Edit** (manual confirmation for actions), and **Auto** (autonomous execution with guardrails) [Craft Agents Review](https://www.youtube.com/watch?v=3Oc9W37-qAM). It also supports **Checkpoints** for long-running autonomous tasks [Anthropic News](https://www.anthropic.com/news/enabling-claude-code-to-work-more-autonomously).",
+    "artifacts": "**Direct & Integrated.** In IDEs (VS Code/JetBrains), proposed edits appear **inline directly in the files** for review [Anthropic News](https://www.anthropic.com/news/claude-4). The terminal interface provides diff summaries, while the web/desktop apps offer **expanded previews** for HTML, PDFs, and local app server outputs [Build Fast with AI](https://www.buildfastwithai.com/blogs/claude-code-desktop-redesign-2026). It also automates the creation of **GitHub PRs and commits** [Anthropic Product](https://www.anthropic.com/product/claude-code).",
+    "multi_agent": "**Parallel Execution & Reviews.** Supports **Ultrareview**, which spins up multiple parallel agent reviewers (security, correctness, design) to inspect a single diff [AIUnpacking](https://aiunpacking.com/review/claude-code/). It manages **Agent Teams (Swarms)** with designated roles and task assignments [Claude Code Dashboard Repo](https://github.com/ek33450505/claude-code-dashboard). Parallel sessions on the same codebase are officially recommended via **git worktrees** [LinkedIn Post](https://www.linkedin.com/posts/evan-king-40072280_how-i-stopped-getting-distracted-while-claude-activity-7354182135668240384-7Mp1).",
+    "notifications": "**Multi-Channel Status.** Urgent items bubble up via **native OS notifications** (macOS/Windows), browser notifications, and badges in the desktop app [LinkedIn Post](https://www.linkedin.com/posts/evan-king-40072280_how-i-stopped-getting-distracted-while-claude-activity-7354182135668240384-7Mp1), [Claude Code Dashboard Repo](https://github.com/kosinal/claude-code-dashboard). The UI uses **animated status dots** (pulsing yellow for thinking, breathing blue for input) to signal session state [Claude Code UI Spec](https://github.com/KyleAMathews/claude-code-ui/blob/main/spec.md). Integrations like **Dispatch** allow notifications via Telegram/Slack [MindStudio](https://www.mindstudio.ai/blog/what-is-claude-code-dispatch).",
+    "ui_patterns": [
+      "**Plan-then-Execute:** Generates a detailed implementation plan before starting multi-file tasks [Ccboard](https://ccboard.bruniaux.com).",
+      "**Agent Inbox:** A hybrid interface that manages sessions like email/task threads [Craft Agents Review](https://www.youtube.com/watch?v=3Oc9W37-qAM).",
+      "**Remote Control (/rc):** A command that allows users to 'drive' a running terminal session from a mobile device or web browser [Claude Docs](https://code.claude.com/docs/en/remote-control).",
+      "**Routines:** Scheduled, recurring agentic tasks (e.g., daily summaries, security audits) [Build Fast with AI](https://www.buildfastwithai.com/blogs/claude-code-desktop-redesign-2026).",
+      "**Command Palette:** In-terminal slash commands (`/login`, `/hook`, `/remote-control`) for session management [Anthropic News](https://www.anthropic.com/news/enabling-claude-code-to-work-more-autonomously)."
+    ],
+    "visual_description": "The UI is characterized by a **modern TUI (Terminal User Interface)** with color-coded status indicators (Emerald for active, Orange for pending approval) [Claude Code Dashboard Repo](https://github.com/ek33450505/claude-code-dashboard). The Desktop/Web apps feature a **three-pane layout**: a sidebar with project lists and daily summaries, a central chat history, and a right-hand pane for file previews or terminal output [YouTube - Project Management Dashboard](https://www.youtube.com/watch?v=X4cFPdzcK7E). Visualizations include **usage heatmaps**, 30-day token burn charts, and \"pixel sprite\" animations for agent status in certain community dashboards [Claude Code Dashboard Extension](https://marketplace.visualstudio.com/items?itemName=jspw.claude-code-dashboard), [Claude Code Dashboard (PyPI)](https://libraries.io/pypi/claude-code-dashboard).",
+    "sources": [
+      "Anthropic Claude Code Product Page (https://www.anthropic.com/product/claude-code)",
+      "Anthropic News: Claude 4 Announcement (https://www.anthropic.com/news/claude-4)",
+      "Claude Code Documentation (https://code.claude.com/docs/en/overview)",
+      "Anthropic News: Remote Control & VS Code Extension (https://www.anthropic.com/news/enabling-claude-code-to-work-more-autonomously)",
+      "AIUnpacking: Claude Code 2026 Review (https://aiunpacking.com/review/claude-code/)",
+      "Claude Code Dashboard GitHub (https://github.com/ek33450505/claude-code-dashboard)",
+      "MindStudio: Claude Code Dispatch (https://www.mindstudio.ai/blog/what-is-claude-code-dispatch)"
+    ]
+  },
+  {
+    "entity": "Devin AI by Cognition Labs interface",
+    "agent_name": "Devin AI",
+    "vendor": "[Cognition Labs](https://cognition.ai)",
+    "audience": "[Engineering teams](https://cognition.ai/blog/dec-24-product-update-2), ranging from [individual developers](https://medium.com/@takafumi.endo/agent-native-development-a-deep-dive-into-devin-2-0s-technical-design-3451587d23c0) to [large enterprises](https://cognition.ai).",
+    "primary_surface": "[Web App](https://app.devin.ai), [Slack Integration](https://dev.to/builderio/devin-review-is-it-a-better-ai-coding-agent-than-cursor-d6p), [Devin Desktop](https://www.linkedin.com/company/cognition-ai-labs) (standalone IDE), [IDE Extension](https://www.gadgets360.com/ai/news/cognition-labs-devin-ai-software-engineer-generally-available-7224739), and [CLI/API](https://docs.devin.ai/api-reference/overview).",
+    "task_lifecycle": "[Live Planner](https://ppaolo.substack.com/p/in-depth-product-analysis-devin-cognition-labs) (to-do list with real-time updates), [Timeline Slider](https://ppaolo.substack.com/p/in-depth-product-analysis-devin-cognition-labs) for historical playback, [Live Logs](https://testsigma.com/blog/how-to-use-devin-ai-for-testing/) in the Shell, and [Progress Steps](https://www.youtube.com/watch?v=-0bBQ4BXZ14) displayed within the chat thread.",
+    "approval_model": "[Autonomous planning](https://docs.devin.ai/get-started/devin-intro) with [checkpoint approvals](https://news.smol.ai/tags/anthropic/). Users can [take over](https://docs.devin.ai/work-with-devin/devin-session-tools) work in the Shell, Editor, or Browser at any time. Features [Devin Review](https://www.digitalapplied.com/blog/devin-2-desktop-code-review-ai-engineer-guide) (v2.2) for automated quality passes on PRs before human review.",
+    "artifacts": "Generated files and [code diffs](https://docs.devin.ai/work-with-devin/devin-session-tools) are shown in the Workspace Editor. [Pull Requests](https://cognition.ai/blog/devin-101-automatic-pr-reviews-with-the-devin-api) are pushed to GitHub/GitLab. [Screen recordings](https://cognition.ai/blog/introducing-devin-2-2) of app testing and [DeepWiki](https://docs.devin.ai/work-with-devin/deepwiki) (auto-generated documentation with diagrams) are also produced.",
+    "multi_agent": "Supports [parallel runs](https://medium.com/@takafumi.endo/agent-native-development-a-deep-dive-into-devin-2-0s-technical-design-3451587d23c0) in isolated VMs. Devin can [spawn and schedule sub-agents](https://cognition.ai/blog/devin-can-now-schedule-devins) for tasks like parallelized QA. Multiple agents are managed via an [Organization Selector](https://cognitionai.mintlify.app/release-notes/2025) and [Agent Inbox](https://tianpan.co/blog/2026-04-23-async-agents-inbox-not-chat).",
+    "notifications": "[Slack notifications](https://docs.devin.ai/release-notes/2024) (in-thread updates), [email alerts](https://cognitionai.mintlify.app/product-guides/automations) (for successes/failures), [terminal notifications](https://cognitionai.mintlify.app/cli/changelog/stable) (dock badge/banners), and [in-app alerts](https://www.youtube.com/watch?v=-0bBQ4BXZ14) for task completion or feedback requests.",
+    "ui_patterns": [
+      "[Plan-then-execute](https://ppaolo.substack.com/p/in-depth-product-analysis-devin-cognition-labs) via the Planner tab",
+      "[Time-traveling](https://ppaolo.substack.com/p/in-depth-product-analysis-devin-cognition-labs) via a timeline slider to trace agent activity",
+      "[Following Mode](https://ppaolo.substack.com/p/in-depth-product-analysis-devin-cognition-labs) for live observation of tool use",
+      "[Agent Inbox](https://tianpan.co/blog/2026-04-23-async-agents-inbox-not-chat) for managing multiple async runs",
+      "[Agent Command Center](https://www.linkedin.com/company/cognition-ai-labs) in Devin Desktop",
+      "[Model Context Protocol (MCP)](https://docs.devin.ai/enterprise/integrations/sentry) for tool/skill integration"
+    ],
+    "visual_description": "The UI features a [three-panel layout](https://ppaolo.substack.com/p/in-depth-product-analysis-devin-cognition-labs): Chat on the left, current session in the center, and a multi-tab [Workspace](https://docs.devin.ai/work-with-devin/devin-session-tools) on the right (Shell, Editor, Browser, Planner, and Desktop). It includes a [timeline slider](https://ppaolo.substack.com/p/in-depth-product-analysis-devin-cognition-labs) at the bottom and [pulsating indicators](https://ppaolo.substack.com/p/in-depth-product-analysis-devin-cognition-labs) when the agent is \"thinking.\" Dark-themed, high-density IDE-like aesthetics.",
+    "sources": [
+      "https://docs.devin.ai/get-started/devin-intro",
+      "https://cognition.ai/blog/introducing-devin-2-2",
+      "https://ppaolo.substack.com/p/in-depth-product-analysis-devin-cognition-labs",
+      "https://medium.com/@takafumi.endo/agent-native-development-a-deep-dive-into-devin-2-0s-technical-design-3451587d23c0",
+      "https://www.digitalapplied.com/blog/devin-2-desktop-code-review-ai-engineer-guide",
+      "https://tianpan.co/blog/2026-04-23-async-agents-inbox-not-chat"
+    ]
+  },
+  {
+    "entity": "Microsoft Copilot Studio Scout agent management",
+    "agent_name": "Microsoft Scout (Autopilot Agent)",
+    "vendor": "Microsoft",
+    "audience": "Enterprise and Prosumer (via Microsoft Frontier program) ([Digital Applied](https://www.digitalapplied.com/blog/microsoft-scout-personal-ai-agent-build-2026-analysis), [TestingCatalog](https://www.testingcatalog.com/early-look-microsoft-rolls-out-scout-ai-agent-to-frontier-users/)).",
+    "primary_surface": "Standalone desktop application (Windows and macOS) and deeply integrated background service across Microsoft 365 (Teams, Outlook, OneDrive) ([TestingCatalog](https://www.testingcatalog.com/early-look-microsoft-rolls-out-scout-ai-agent-to-frontier-users/)).",
+    "task_lifecycle": "Visualized through an \"Agent Activity Feed\" and \"Task Timeline.\" It includes a chronological sequence of events in a vertical list format, providing a summary of steps taken, an activity map, and real-time progress streaming for active tasks ([Microsoft Dynamics 365 Blog](https://www.microsoft.com/en-us/dynamics-365/blog/it-professional/2025/10/08/try-the-ai-agent-activity-feed-in-dynamics-365-customer-service/), [Microsoft Design](https://design.learn.microsoft.com/components/timeline.html)).",
+    "approval_model": "Three-tier permission system: Auto-approve, Prompt, and Deny. Scout presents a preview (e.g., email content, shell command) before sensitive actions. Users can select \"Always allow\" to add specific patterns to an auto-approve list ([Microsoft Learn](https://learn.microsoft.com/en-us/microsoft-scout/microsoft-scout-responsible-ai-faq), [Digital Applied](https://www.digitalapplied.com/blog/microsoft-scout-personal-ai-agent-build-2026-analysis)).",
+    "artifacts": "Artifacts such as generated files are saved to a dedicated \"workspace directory.\" In-app, results are rendered using rich markdown in the conversation, including headings, tables, code blocks with syntax highlighting, Mermaid diagrams, and inline images ([Microsoft Learn](https://learn.microsoft.com/en-us/microsoft-scout/get-started), [Practical AI](https://aidevme.com/microsoft-scout-autopilot-agent-complete-guide/)).",
+    "multi_agent": "Managed via the \"Agent 365\" framework where each agent has a unique Entra ID and productivity license. Admins use the Microsoft 365 Admin Center to monitor, review, and block agents. A unified \"Agent Activity Feed\" (preview) allows supervisors to monitor multiple custom Copilot Studio-based agents ([Note.com](https://note.com/snake_dragon/n/ned01f4d901ea?hl=en), [Microsoft Dynamics 365 Blog](https://www.microsoft.com/en-us/dynamics-365/blog/it-professional/2025/10/08/try-the-ai-agent-activity-feed-in-dynamics-365-customer-service/)).",
+    "notifications": "Urgent items bubble up via push notifications for manual approvals and an \"Approval Inbox\" within the activity center. Scout also proactively joins Teams chats or Outlook threads as a direct participant to signal status or request input ([2Tolead](https://www.2tolead.com/insights/what-is-microsoft-scout-the-always-on-autopilot-agent-for-microsoft-365), [Digital Applied](https://www.digitalapplied.com/blog/microsoft-scout-personal-ai-agent-build-2026-analysis)).",
+    "ui_patterns": [
+      "Plan-then-execute progress streaming",
+      "Inbox-style agent activity feed",
+      "Agent identity via Entra ID (Agent 365)",
+      "Three-tier permission gates",
+      "Direct peer participation in Teams/Outlook"
+    ],
+    "visual_description": "The UI features a main chat interface with an input bar at the bottom. A three-column portal layout is used for management, showing 'Workforce Agents' (active agents), 'Workforce Responses' (latest logs/analyses), and 'RPI Scores' (resource monitoring). The 'Agent Activity Feed' uses an inbox-style UX with vertical timelines and activity maps. It utilizes Microsoft's Fluent design system, supporting light/dark modes ([Scout Documentation](https://www.scoutagentics.com/Documentation.html), [Microsoft Dynamics 365 Blog](https://www.microsoft.com/en-us/dynamics-365/blog/it-professional/2025/10/08/try-the-ai-agent-activity-feed-in-dynamics-365-customer-service/)).",
+    "sources": [
+      "Microsoft Learn: Responsible AI FAQ for Microsoft Scout (https://learn.microsoft.com/en-us/microsoft-scout/microsoft-scout-responsible-ai-faq)",
+      "Microsoft Blog: Agent Activity Feed (https://www.microsoft.com/en-us/dynamics-365/blog/it-professional/2025/10/08/try-the-ai-agent-activity-feed-in-dynamics-365-customer-service/)",
+      "Digital Applied: Microsoft Scout Analysis (https://www.digitalapplied.com/blog/microsoft-scout-personal-ai-agent-build-2026-analysis)",
+      "TestingCatalog: Scout AI Early Look (https://www.testingcatalog.com/early-look-microsoft-rolls-out-scout-ai-agent-to-frontier-users/)",
+      "Practical AI: Microsoft Scout Guide (https://aidevme.com/microsoft-scout-autopilot-agent-complete-guide/)"
+    ]
+  },
+  {
+    "entity": "Perplexity Computer agent task interface",
+    "agent_name": "Perplexity Computer Agent",
+    "vendor": "Perplexity AI",
+    "audience": "Prosumer and Enterprise ($200/month \"Max\" tier) ([AI CERTs](https://www.aicerts.ai/news/perplexitys-model-council-redefines-multi-model-validation/)).",
+    "primary_surface": "Web Desktop (main portal) and Slack integration ([Progressive Robot](https://www.progressiverobot.com/2026/05/10/perplexity-computer/)). Mobile access is currently listed as \"pending\" or \"coming later\" ([AI CERTs](https://www.aicerts.ai/news/perplexitys-model-council-redefines-multi-model-validation/)).",
+    "task_lifecycle": "Visualized through a 'Task Graph' (visual tree of subtasks) and a step-by-step 'Activity Feed' ([AI Agents Kit](https://aiagentskit.com/blog/perplexity-computer-guide/)). It displays a 'Plan View' before execution, where users can see the proposed roadmap, followed by a live log of tool calls and model reasoning in the right-hand thinking pane ([Perplexity Changelog](https://www.perplexity.ai/changelog/improved-computer-models-and-enterprise-updates---may-4-2026), [Everyday AI](https://www.youreverydayai.com/ep-726-perplexity-computer-what-it-is-how-to-use-it-and-is-it-better-than-openclaw/)).",
+    "approval_model": "Hybrid model: Auto-executes routine research, but employs a strict \"plan-then-execute\" pattern for complex projects ([Perplexity Changelog](https://www.perplexity.ai/changelog/improved-computer-models-and-enterprise-updates---may-4-2026)). Mandatory \"approval gates\" (confirm_action tool) are required for sensitive or irreversible actions like financial transactions, deleting/modifying data, sending emails, or publishing public content ([Source Leak](https://github.com/asgeirtj/system_prompts_leaks/blob/main/Perplexity/perplexity-computer.md), [Voxfor](https://www.voxfor.com/perplexity-computer-autonomous-ai-coworker/)). Users can configure risk thresholds to control when the agent pauses for confirmation ([Voxfor](https://www.voxfor.com/perplexity-computer-autonomous-ai-coworker/)).",
+    "artifacts": "Artifacts are surfaced via a dedicated \"Artifact Gallery\" and side panels ([AI Agents Kit](https://aiagentskit.com/blog/perplexity-computer-guide/)). The system generates structured files (PDF, Excel, Python scripts, HTML) that appear as downloadable or viewable tiles within the thread ([MarketingAgent](https://marketingagent.blog/2026/03/12/tutorial-5-marketing-workflows-with-perplexity-computer/)). For code, it provides diffs and deployment previews, often surfacing a live URL for generated websites ([AI Agents Kit](https://aiagentskit.com/blog/perplexity-computer-guide/)).",
+    "multi_agent": "Orchestrates up to 19 models in parallel ([Nurix AI](https://www.nurix.ai/blogs/perplexity-computer-multi-agent-orchestration-enterprise-operations)). Users can monitor parallel sub-agents in a task graph or list view, with the ability to pause or stop individual sub-agents mid-task ([DataCamp](https://www.datacamp.com/tutorial/perplexity-computer)). Tasks can run asynchronously for hours or months in an \"isolated cloud sandbox\" ([Anthem Cr\u00e9ation](https://anthemcreation.com/en/artificial-intelligence/perplexity-computer-autonomous-multi-agent-system/)).",
+    "notifications": "Urgent items bubble up through an \"Agent Inbox\" and in-app alerts (banners/modals) when human input is required ([Releasebot](https://releasebot.io/updates/perplexity-ai)). Notifications are sent for task completion, auth failures, or high-risk approval checkpoints, appearing as system-level notifications or Slack alerts if integrated ([Perplexity Help Center](https://www.perplexity.ai/help-center/en/articles/11521526-perplexity-tasks)).",
+    "ui_patterns": [
+      "Plan-then-execute (drafts a structured plan before start) ([Perplexity Changelog](https://www.perplexity.ai/changelog/improved-computer-models-and-enterprise-updates---may-4-2026))",
+      "Three-pane layout (sidebar, activity, thinking) ([Everyday AI](https://www.youreverydayai.com/ep-726-perplexity-computer-what-it-is-how-to-use-it-and-is-it-better-than-openclaw/))",
+      "Live credit consumption counter ([DataCamp](https://www.datacamp.com/tutorial/perplexity-computer))",
+      "Skill Library (.md file skill definitions) ([Product Growth](https://www.news.aakashg.com/p/perplexity-computer-guide-product-managers))",
+      "Model Attribution (tagging which model did what) ([Its Boris](https://its-boris.com/blog/perplexity-computer-and-the-thin-client-pattern))"
+    ],
+    "visual_description": "The UI uses a three-pane layout: a left sidebar for navigation (Tasks, Skills, Connectors), a central 'Task Console' for input and planning, and a right-side 'Chain of Thought' panel ([Everyday AI](https://www.youreverydayai.com/ep-726-perplexity-computer-what-it-is-how-to-use-it-and-is-it-better-than-openclaw/)). Visually, tasks are represented as nodes in an interactive 'Task Graph' that shows execution sequences and model dependencies ([AI Agents Kit](https://aiagentskit.com/blog/perplexity-computer-guide/)). Real-time progress is indicated by pulsing dots for active agents and checkmarks for completed steps ([Youtube Demo](https://www.youtube.com/watch?v=HgLAxIHG-Tw)). A live credit ticker at the top or within the thread tracks resource usage ([DataCamp](https://www.datacamp.com/tutorial/perplexity-computer)).",
+    "sources": [
+      "Perplexity Blog - Introducing Perplexity Computer",
+      "Perplexity Help Center - Tasks",
+      "AI Agents Kit - Complete Guide",
+      "Perplexity Changelog - May 2026"
+    ]
+  },
+  {
+    "entity": "Manus AI agent dashboard",
+    "agent_name": "Manus AI (General AI Agent)",
+    "vendor": "Meta (Manus AI) [Manus Landing Page](https://manus.im/)",
+    "audience": "Prosumer, Enterprise, and Developers (marketed to founders and business users as a no-code full-stack builder). [Manus for Business](https://manus.im/team), [App Store Listing](https://apps.apple.com/lk/app/manus-ai-agent-automation/id6740909540)",
+    "primary_surface": "Web App (primary), Desktop App (macOS/Windows), Mobile App (iOS), and \"My Browser\" operator extension. [Manus Downloads](https://manus.im/desktop), [Manus Browser Operator](https://manus.im/features/manus-browser-operator)",
+    "task_lifecycle": "Visualized through a real-time `todo.md` markdown checklist where the agent checks off subtasks as it completes them. It also features a \"Time-Travel\" scroll bar that allows users to jump back to any previous state of the agent's browser or terminal session. [Manus Replay on GitHub](https://github.com/agenaiguy/awesome-manus-replay), [Task Lifecycle API Docs](https://open.manus.ai/docs/v2/task-lifecycle)",
+    "approval_model": "Autonomous execution with \"Take Over\" for manual intervention (e.g., CAPTCHAs, SMS, 2FA) and checkpoint approvals for key decision points. [Manus Cloud Browser Docs](https://manus.im/docs/features/cloud-browser), [Wide Research Tutorial](https://www.youtube.com/watch?v=MFhphj2YFoc)",
+    "artifacts": "Artifacts are surfaced through a specialized session file management interface and an \"Artifact Gallery.\" Generated websites and dashboards are deployed to permanent public URLs. Users can also download clean codebase exports (HTML/JS) or view live analytics within the dashboard. [Manus Web App Features](https://manus.im/features/webapp), [Manus AI 101](https://sidsaladi.substack.com/p/manus-ai-101-the-complete-guide-to)",
+    "multi_agent": "Managed via a sidebar \"task switcher\" for multiple independent runs. For batch processing, the \"Wide Research\" feature spawns hundreds of parallel sub-agents to handle items independently (up to 250+ items). [Wide Research Docs](https://manus.im/docs/features/wide-research), [UI Tour Video](https://www.youtube.com/watch?v=eTfcS2Mu0Tk)",
+    "notifications": "Urgent items bubble up via bottom-left in-app activity alerts, sidebar unread/status badges, and mobile push notifications. [LinkedIn UI Breakdown](https://www.linkedin.com/posts/vamshi-sai-awaru-01b258194_breaking-down-manus-ai-home-ui-activity-7410658330026799105-cmqc), [Workflow Guide](https://www.youtube.com/watch?v=YNJXszI7TxQ)",
+    "ui_patterns": [
+      "Plan-then-execute (via real-time todo.md checklists)",
+      "Design View (interactive canvas for visual edits/upscaling)",
+      "Wide Research (massively parallel agent spawning)",
+      "Projects (persistent workspaces with master instructions)",
+      "Command Palette (Ctrl+K for search, Ctrl+I for assistant)"
+    ],
+    "visual_description": "The UI features a minimalist white-space aesthetic with a central 'white pill' input box ('What can I do for you?'). For active tasks, it uses a split-screen layout: the left panel contains the conversation/chat history, while the right panel shows a live view of the Cloud Browser, Terminal, or Design Canvas. A 'todo.md' checklist updates in real-time at the top of the chat to show progress. [ContentBeta Blog](https://www.contentbeta.com/blog/manus-ai/), [Manus Home](https://manus.im/)",
+    "sources": [
+      "Manus Official Site (manus.im)",
+      "Manus Documentation (manus.im/docs)",
+      "Manus Cloud Browser Docs (manus.im/docs/features/cloud-browser)",
+      "Wide Research Docs (manus.im/docs/features/wide-research)",
+      "Manus Web App Features (manus.im/features/webapp)",
+      "Manus AI Review 2026 (till-freitag.com/en/blog/manus-ai-review-en)",
+      "LinkedIn UI/UX Breakdown (linkedin.com/posts/vamshi-sai-awaru-01b258194_breaking-down-manus-ai-home-ui-activity-7410658330026799105-cmqc)"
+    ]
+  },
+  {
+    "entity": "Replit Agent interface",
+    "agent_name": "Replit Agent 4 (latest version as of March 2026)",
+    "vendor": "Replit",
+    "audience": "Prosumer and Developer (specifically Core, Pro, and Enterprise users) ([Replit Blog](https://replit.com/blog/introducing-agent-4-built-for-creativity), [Neon Blog](https://neon.com/blog/building-a-news-app-with-replit-agent-a-step-by-step-guide)).",
+    "primary_surface": "Web-based Cloud IDE and Mobile App ([YouTube](https://www.youtube.com/watch?v=b5urkGeHyvo), [Replit Docs](https://docs.replit.com/references/design/canvas)).",
+    "task_lifecycle": "Visualized through a **Task Board** (Kanban style) with columns for **Drafts** (planned), **Active** (building), **Ready** (review/test), and **Done** (merged) ([Replit Docs](https://docs.replit.com/references/agent/task-lifecycle.md), [YouTube](https://www.youtube.com/watch?v=Wk_wsxQtsZ8)). Each task card includes a title, status, and timestamp.",
+    "approval_model": "A \"plan-then-execute\" model where the Agent proposes a step-by-step plan in the **Drafts** column of the task board for user review and approval before building ([Replit Docs](https://docs.replit.com/references/agent/task-lifecycle.md), [Behind the Craft](https://creatoreconomy.so/p/replit-agent-4-is-here-plan-design-build-tutorial)). Completed tasks run in isolated sandboxes and require a manual **Apply to main** or merge confirmation to be integrated into the main codebase ([YouTube](https://www.youtube.com/watch?v=Vpel0M_L3fI)).",
+    "artifacts": "Artifacts (web apps, mobile views, slides, animations) are surfaced on an **Infinite Design Canvas**, a Figma-like board where interactive previews and design mockups live side-by-side ([Replit Blog](https://replit.com/blog/introducing-agent-4-built-for-creativity), [Replit Docs](https://docs.replit.com/references/design/canvas)). Users can switch between artifacts via an **Artifact Selector** or **Library** ([YouTube](https://www.youtube.com/watch?v=bAUVQfz_SIY)).",
+    "multi_agent": "Supports **Parallel Agents** that run up to 4 independent tasks simultaneously in isolated sandboxes ([YouTube](https://www.youtube.com/watch?v=Wk_wsxQtsZ8)). Tasks are managed via a **Task Board** and a side panel drawer, with specialized **reconciliation agents** to handle merge conflicts ([Replit Blog](https://replit.com/blog/introducing-agent-4-built-for-creativity), [GLN-7.5](https://gln75.com/no/blog/replit-agent-hands-four-new-features-explained)).",
+    "notifications": "Uses **Decision-time guidance**, which are lightweight, situational notifications/nudges that appear when the agent detects errors, \"doom loops,\" or high-risk changes ([Replit Blog](https://replit.com/blog/decision-time-guidance)). Task status is also bubbled up via real-time **dynamic icons** (e.g., active tasks show a blue spinning state) on the task board ([GLN-7.5](https://gln75.com/no/blog/replit-agent-hands-four-new-features-explained)).",
+    "ui_patterns": [
+      "Infinite Design Canvas (Figma-like workspace)",
+      "Task-based Parallel Execution (Kanban board for agents)",
+      "Plan-then-execute workflow",
+      "Artifact Gallery/Library for multi-output management",
+      "Decision-time guidance (situational nudges)",
+      "Cartographer (visual element selector for direct editing)"
+    ],
+    "visual_description": "The UI centers around an **Infinite Canvas** where frames representing different app pages, designs, and slides are laid out. A **Task Board** (Trello-style) appears as a panel or full view to track progress across Drafts, Active, and Ready columns. A **collapsible sidebar** manages parallel agent threads and the chat interface. Interaction includes a **Cartographer** tool for clicking elements directly on the canvas to describe changes ([Replit Blog](https://replit.com/blog/cartographer), [YouTube](https://www.youtube.com/watch?v=bAUVQfz_SIY)).",
+    "sources": [
+      "Replit Docs: Task Lifecycle](https://docs.replit.com/references/agent/task-lifecycle.md),"
+    ]
+  },
+  {
+    "entity": "v0 by Vercel agent interface",
+    "agent_name": "v0 by Vercel Agent Interface",
+    "vendor": "Vercel",
+    "audience": "Originally developers (prosumer), now expanded to designers, marketers, and business users (enterprise) to build software without needing \"a single commit\" ([The AI Economy](https://theaieconomy.substack.com/p/vercel-v0-agent-expands-beyond-developers)).",
+    "primary_surface": "Primary interface is a **web application** (v0.app). It also integrates with the **Vercel CLI** (npx v0 add), **GitHub**, and provides an **API** for programmatic access ([v0.app](https://v0.app), [v0 Docs](https://v0.app/docs/terminal-commands)).",
+    "task_lifecycle": "Visualized through **real-time progress indicators** and **tool execution cards** within the chat stream. Users see a step-by-step log of agent actions (e.g., \"Searching web\", \"Running command\"). For complex tasks, it provides **reasoning traces** and browser screenshots of the agent's viewport ([v0 Docs](https://v0.app/docs/agentic-features#real-time-feedback), [Vercel Community](https://community.vercel.com/t/agenttrace-ui-human-in-the-loop-approval-gates-and-reasoning-traces-built-on-ai-sdk-v6/37962)).",
+    "approval_model": "Three-tier permission system for terminal commands: **Ask** (manual confirmation for every action), **Auto** (auto-executes safe/read-only commands, asks for others), and **Full** (auto-execute all except system-blocked destructive actions). High-risk operations like deployments or GitHub PR creation typically surface as confirmation cards in the chat or Slack ([Vercel Docs](https://v0.app/docs/terminal-commands#permission-modes), [Vercel KB](https://vercel.com/kb/guide/building-human-in-the-loop-agents-for-community-moderation-with-durable-workflows)).",
+    "artifacts": "Artifacts are surfaced through a **split-view interface**. The right panel contains an interactive **Live Preview** (running in an isolated Vercel Sandbox VM) and a **Code Editor**. GitHub integrations surface code as **branches and Pull Requests** manageable via a dedicated Git panel ([v0 Docs](https://v0.app/docs/agentic-features#real-time-feedback), [Vercel Blog](https://vercel.com/blog/introducing-the-new-v0)).",
+    "multi_agent": "Managed via **Projects** and **Folders**. Multiple chats can be connected to a single Project, sharing deployments and environment variables. Internally uses an **Orchestrator Agent** pattern where a manager agent coordinates specialized sub-agents (frontend, backend, database) ([v0 Docs](https://v0.app/docs/projects), [Vercel Docs](https://v0.app/chat/multi-agent-system-design-cBRZlwNr6BU)).",
+    "notifications": "Urgent items bubble up via **in-chat progress indicators**, **status badges** (Running, Completed, Failed), and **Slack integrations** for human-in-the-loop approvals. Badges on sidebar items indicate pending requests or updates ([v0 Docs](https://v0.app/docs/agentic-features#real-time-feedback), [Vercel KB](https://vercel.com/kb/guide/building-human-in-the-loop-agents-for-community-moderation-with-durable-workflows)).",
+    "ui_patterns": [
+      "Plan-then-execute workflow with reasoning traces",
+      "Artifact gallery (Live Preview + Code tabs)",
+      "Command palette (Cmd+K) for navigation",
+      "Annotation-based feedback (click-to-prompt on UI elements)",
+      "Connect panel for marketplace integrations"
+    ],
+    "visual_description": "A modern, dark-themed (by default) workspace with a three-pane layout: a **left sidebar** for navigation (Projects, Folders, Settings), a **central chat column** for prompting and viewing agent steps/tool cards, and a **large right-side panel** for the Live Preview and Code Editor. Interactive 'Tool execution cards' show status, and 'Browser screenshots' appear inline when the agent uses the browser ([v0 Docs](https://v0.app/docs/agentic-features#user-interface)).",
+    "sources": [
+      "v0 Agentic Features Docs](https://v0.app/docs/agentic-features), [v0 Projects Docs](https://v0.app/docs/projects), [v0 Terminal Commands Docs](https://v0.app/docs/terminal-commands), [Vercel Blog: Introducing the new v0](https://vercel.com/blog/introducing-the-new-v0), [The AI Economy: v0 Agent Expands Beyond Developers](https://theaieconomy.substack.com/p/vercel-v0-agent-expands-beyond-developers)",
+      "task_lifecycle_ui:"
+    ]
+  },
+  {
+    "entity": "Genspark AI Super Agent interface",
+    "agent_name": "Genspark Super Agent (part of Genspark AI Workspace 4.0)",
+    "vendor": "MainFunc (Genspark Inc.)",
+    "audience": "Prosumer, Professionals, and Enterprise users. It targets individuals who need a \"swiss-army-knife\" of AI tools and teams looking for \"AI employees\" to handle administrative and research tasks. [ScreensDesign](https://screensdesign.com/showcase/genspark-super-ai-agent), [Genspark Blog](https://www.genspark.ai/blog/genspark-ai-workspace-4)",
+    "primary_surface": "Web application, Mobile app (iOS/Android), and Desktop client (Genspark Claw). It also features deep integration as native plugins inside Microsoft Office (Word, Excel, PowerPoint) and Google Workspace. [Genspark Blog](https://www.genspark.ai/blog/genspark-ai-workspace-4)",
+    "task_lifecycle": "Task lifecycle is visualized through a combination of a high-level progress bar (e.g., \"Create Plan\", \"Deep Research\", \"Final Report\"), a \"Thinking\" view that shows sub-tasks and tool calls in real-time, and a \"Plan View\" where the AI outlines its approach. Users can expand details at each step to see specific agent reasoning. [Why Try AI](https://www.whytryai.com/p/genspark-super-agent), [Genspark Agent Viewer](https://www.genspark.ai/autopilotagent_viewer?id=741429bc-9583-429e-bf4b-def305de311b)",
+    "approval_model": "The model uses a \"plan-then-execute\" approach where users can see the breakdown of tasks. For actions like sending emails or making calls, it typically drafts the content or summarizes the plan and waits for user confirmation (e.g., clicking \"send\" or \"proceed\"). Some high-level tasks like Deep Research or AI Slides generation run in \"autopilot\" mode with a final notification upon completion. [Why Try AI](https://www.whytryai.com/p/genspark-super-agent), [Lilys AI](https://lilys.ai/fr/notes/gensparkai-20260114/genspark-ai-super-agent-tutorial)",
+    "artifacts": "Artifacts are surfaced in specialized \"canvases\" or \"hubs\" depending on the type. For example, AI Slides are shown in a presentation viewer, AI Sheets in a spreadsheet-like interface, and AI Docs in a document editor. There is also an \"AI Inbox\" for email-related artifacts and a \"Drive\" for file management. Deep Research results include mind maps, data tables, and comprehensive reports. [Genspark Blog](https://www.genspark.ai/blog/genspark-multiagent-orchestration), [ScreensDesign](https://screensdesign.com/showcase/genspark-super-ai-agent)",
+    "multi_agent": "Genspark uses a \"lead agent\" to coordinate multiple specialized \"sub-agents\" (e.g., AI Slides, AI Sheets, AI Docs) in parallel. While execution is parallel, the context management follows a linear logic to ensure coordination. Users can also instantiate \"On-Demand Ephemeral Agents\" using YAML configurations for custom workflows. [Genspark Blog](https://www.genspark.ai/blog/genspark-multiagent-orchestration)",
+    "notifications": "Urgent items \"bubble up\" via the \"AI Inbox\" and \"Daily Dashboard\" which summarizes unread emails and upcoming meetings. Users receive completion notifications via email and in-app alerts when long-running tasks like Deep Research are finished. [YouTube](https://www.youtube.com/watch?v=KHzLctOWbA4), [Note.com](https://note.com/deep_weasel3376/n/n36070c03b9e3)",
+    "ui_patterns": [
+      "Plan-then-execute: Super Agent breaks down tasks into steps and shows its reasoning before/during execution. [Why Try AI](https://www.whytryai.com/p/genspark-super-agent)",
+      "Specialized Canvases: Different agents (Slides, Sheets, Docs) operate in their own environment tailored to the task. [Genspark Blog](https://www.genspark.ai/blog/genspark-multiagent-orchestration)",
+      "AI Inbox: A dedicated space for managing emails, summarizing threads, and drafting replies. [YouTube](https://www.youtube.com/watch?v=NR-uO7zsFuA)",
+      "Command Palette / Chat Input: A central \"Ask anything, create anything\" textbox on the home screen. [Genspark Website](https://www.genspark.ai/)",
+      "Task History: A profile-linked list of past AI jobs and generated content. [ScreensDesign](https://screensdesign.com/showcase/genspark-super-ai-agent)"
+    ],
+    "visual_description": "The UI is a modern, dark-themed workspace with a sidebar for navigation (Home, Skills, Workflows, Drive, More). The central landing page features a large search/prompt bar. During task execution, a step-by-step progress bar (e.g., \"Create Plan\" -> \"Deep Research\" -> \"Final Report\") is displayed above the content. The interface uses \"cards\" for different agents and tools. Artifacts like reports include visual mind maps and interactive data tables. [Genspark Website](https://www.genspark.ai/), [Genspark Agent Viewer](https://www.genspark.ai/autopilotagent_viewer?id=741429bc-9583-429e-bf4b-def305de311b)",
+    "sources": [
+      "Genspark AI Workspace 4.0 Blog",
+      "Genspark Deep Research Blog",
+      "Genspark Multi-Agent Orchestration Blog",
+      "Genspark Super Agent Review by Daniel Nest",
+      "Genspark AI Workspace UI Breakdown on ScreensDesign",
+      "Genspark Super Agent Tutorial on YouTube",
+      "Genspark AI Inbox Video",
+      "Genspark Website"
+    ]
+  },
+  {
+    "entity": "Aider terminal coding agent UI",
+    "agent_name": "Aider",
+    "vendor": "Paul Gauthier (Open Source)",
+    "audience": "Developer (specifically \"hardcore\" engineers, CLI-centric developers, and AI-native coders) ([Blott](https://www.blott.com/blog/post/aider-review-a-developers-month-with-this-terminal-based-code-assistant), [WarpNav](https://warpnav.com/en/sites/aider-en)).",
+    "primary_surface": "Terminal/CLI (Primary), with an experimental **Streamlit-based Browser UI** and third-party web interfaces like **Aider WebUI** (NiceGUI/xterm.js based) ([Aider Docs](https://aider.chat/docs/usage/browser.html), [GitHub](https://github.com/leandix-ai/aider-webui)).",
+    "task_lifecycle": "The lifecycle is visualized as a **linear chat-to-commit timeline**. Each turn follows a pattern: **User Prompt -> Model Reasoning -> File Edit -> Git Commit**. In the terminal, this is shown via real-time streaming text and \"applied\" notifications. More complex tasks can be tracked via the **HISTORY file** and the **`--architect`** mode which adds an explicit \"Proposal\" step before implementation ([Aider Docs](https://aider.chat/docs/usage/modes.html), [DeployHQ](https://www.deployhq.com/guides/aider)).",
+    "approval_model": "Aider follows a **human-in-the-loop** model where the user initiates tasks via chat and the agent applies changes directly to local files. By default, it **auto-commits** every successful edit with a descriptive message, but users can review and **`/undo`** the last commit immediately. The **Architect Mode** introduces a two-stage approval pattern: the \"Architect\" model proposes a plan, which the user can review before the \"Editor\" model applies the diffs ([Aider Docs](https://aider.chat/docs/usage/modes.html), [DeployHQ](https://www.deployhq.com/guides/aider)).",
+    "artifacts": "Artifacts are surfaced as **direct edits to local source files**. Changes are visualized through **Git diffs** displayed in the terminal or browser UI. Aider also generates a **repository map**\u2014a compressed, ranked summary of the codebase's symbols\u2014to provide context without overloading the chat ([Aider Docs](https://aider.chat/docs/repomap.html), [ggprompts.com](https://ggprompts.com/architecture/aider/index.html)). External documentation can be brought in via the **`/web`** command, and visual mockups can be added via **`/paste`** ([Aider Docs](https://aider.chat/docs/usage/images-urls.html)).",
+    "multi_agent": "Native Aider is limited to **one repository and one session at a time**. Parallel agent management is handled by **external orchestrators** (e.g., AgentsRoom, Agent Orchestrator, Ruah) which manage multiple Aider instances in isolated **Git worktrees** to prevent merge conflicts and state \"stomp\" ([AgentsRoom](https://agentsroom.dev/ko/features/multi-project-multi-agent), [MindStudio](https://www.mindstudio.ai/blog/parallel-ai-coding-agents-git-worktrees)).",
+    "notifications": "Aider uses **OS-native notifications** to bubble up urgent status (completion or need for input). This is enabled via the `--notifications` flag, utilizing `terminal-notifier` (macOS), `notify-send` (Linux), or PowerShell (Windows). Users can also specify a **`--notifications-command`** to run custom scripts or text-to-speech alerts like `say 'it done'` ([Aider Docs](https://aider.chat/docs/usage/notifications.html), [KillerSkills](https://killerskills.ai/skill/aider-configuration-bqrcl3)).",
+    "ui_patterns": [
+      "Architect-Editor split (Plan-then-Execute)",
+      "Repository Map (Symbol-based context ranking)",
+      "Chat-to-Commit (Automatic Git workflow)",
+      "Command Palette (In-chat /commands)",
+      "Watch Mode (Editing triggered by file comments)",
+      "Multimodal input (Voice, Paste images, Scrape URLs)"
+    ],
+    "visual_description": "The UI is a **dark-mode, ANSI-colorized terminal** session. It features a linear chat history interspersed with **progress bars** for model responses and **color-coded Git diffs** (green/red) for file changes. The Browser UI typically uses a **split-view layout**: a Chat panel on one side (rendering Markdown and syntax-highlighted code) and a Terminal/File Browser on the other. A signature visual element is the **Repo Map output**, which looks like a tree-sitter-based skeleton of class and function signatures ([Aider Docs](https://aider.chat/docs/repomap.html), [GitHub](https://github.com/leandix-ai/aider-webui)).",
+    "sources": [
+      "Aider Official Site (aider.chat)",
+      "Aider Documentation (aider.chat/docs)",
+      "Aider WebUI (github.com/leandix-ai/aider-webui)",
+      "Aider Architecture Map (ggprompts.com/architecture/aider/index.html)",
+      "AgentsRoom Multi-Agent Manager (agentsroom.dev)"
+    ]
+  },
+  {
+    "entity": "Google Jules coding agent interface",
+    "agent_name": "Google Jules (Jules)",
+    "vendor": "Google Labs",
+    "audience": "Developer (available for Free, Pro, and Ultra tiers). [Jules Docs: Usage & Limits](https://jules.google/docs/usage-limits/)",
+    "primary_surface": "Web App (jules.google.com); also includes a CLI (Jules Tools) with a TUI, REST API, and GitHub Issue label integration ('jules'). [Jules Docs: Getting Started](https://jules.google/docs/), [Jules Docs: CLI](https://jules.google/docs/cli/reference)",
+    "task_lifecycle": "Detailed step-by-step \"Plan\" view before start; real-time \"Activity Feed\" logging agent thoughts, tool outputs, and errors; final \"Task Summary\" dashboard. [Jules Docs: Reviewing Plan](https://jules.google/docs/review-plan/), [Jules Docs: Code Review](https://jules.google/docs/code/)",
+    "approval_model": "Checkpoint approval (requires plan approval before coding), with an auto-approval timer option; interactive mid-task feedback; manual confirmation to \"Publish branch/PR\". [Jules Docs: Reviewing Plan](https://jules.google/docs/review-plan/), [Jules Docs: Code Review](https://jules.google/docs/code/)",
+    "artifacts": "Mini-diffs in activity feed, expanded full-screen diff editor with \"Stacked Diff\" layout; visual verification via rendered UI screenshots; direct GitHub PR/branch creation. [Jules Docs: Code Review](https://jules.google/docs/code/), [Jules Changelog](https://jules.google/docs/changelog/)",
+    "multi_agent": "Supports up to 5 concurrent tasks; CLI supports '--parallel' flag for multiple suggestions from one prompt. [Jules Docs: Managing Tasks](https://jules.google/docs/tasks-repos/), [Jules Changelog](https://jules.google/docs/changelog/)",
+    "notifications": "Browser notifications for task completion/input; periodic email summaries for suggested tasks; status labels (Running, Failed, Waiting) in repo dashboard. [Jules Docs: Getting Started](https://jules.google/docs/), [Jules Docs: Suggested Tasks](https://jules.google/docs/suggested-tasks/)",
+    "ui_patterns": [
+      "Plan-then-execute (mandatory plan review)",
+      "Proactive \"Suggested Tasks\" (auto-scans TODOs)",
+      "Interactive real-time chat for mid-task steering",
+      "Environment snapshots for rapid VM startup",
+      "Stacked vertical diff viewer"
+    ],
+    "visual_description": "Modern Google-labs aesthetic. Left sidebar lists \"Codebases\" and navigation. Central activity feed uses expandable cards for steps/logs. Bottom chat input for prompts and feedback. Right-hand pane or full-screen overlay for diff editing. Status indicators (Running, Completed, Failed) use clear labels. [Jules Docs Screenshots](https://jules.google/docs/)",
+    "sources": [
+      "Jules Documentation",
+      "https://jules.google/docs/",
+      "Jules Changelog",
+      "https://jules.google/docs/changelog/",
+      "Jules CLI Reference",
+      "https://jules.google/docs/cli/reference"
+    ]
+  },
+  {
+    "entity": "Lovable.dev agent interface",
+    "agent_name": "Lovable.dev Agent Interface",
+    "vendor": "Lovable (formerly GPT Engineer)",
+    "audience": "Lovable targets a range of users from **individual builders** (founders, students, makers) to **product/design/marketing teams** and **enterprise** organizations requiring security, compliance, and governance ([Lovable Documentation](https://docs.lovable.dev/introduction/welcome)).",
+    "primary_surface": "The primary surface is a **web app** (Cloud-based dashboard and editor), supplemented by a **desktop app**, a **mobile app** (PWA/native support), and an **MCP server** for IDE integration ([Lovable Documentation](https://docs.lovable.dev/introduction/welcome)).",
+    "task_lifecycle": "The task lifecycle is visualized through an **Activity Card** in the chat interface, which displays the current step, files being modified, and tools being used (search, web fetch, etc.). For complex projects, a **Plan View** provides a step-by-step implementation sequence before execution begins. Progress is tracked through the **Prompt Queue**, showing pending, processing, and completed tasks ([Lovable Documentation](https://docs.lovable.dev/features/agent-mode), [Lovable Documentation](https://docs.lovable.dev/features/plan-mode)).",
+    "approval_model": "Lovable uses a dual-mode approval model: **Plan Mode** (for decision-making and approval before code is written) and **Build Mode** (for autonomous execution). In Plan Mode, the agent proposes a structured plan which the user can edit as markdown or approve. Once approved, the agent switches to Build Mode to implement the changes strictly based on the approved plan ([Lovable Documentation](https://docs.lovable.dev/features/plan-mode)). Users can also \"Pause\" or \"Resume\" the entire prompt queue to control execution timing ([Lovable Documentation](https://docs.lovable.dev/features/agent-mode)).",
+    "artifacts": "Artifacts are surfaced through **file diffs**, summaries, and a **Details view** for modified files ([Lovable Documentation](https://docs.lovable.dev/features/agent-mode)). Code is automatically synced to **GitHub** repositories for version control and PR workflows ([Lovable Homepage](https://lovable.dev/)). Visual artifacts like generated images/videos are displayed directly in the chat interface. Verification data, including **browser console logs**, network requests, and test failures, are collected during browser and frontend testing and presented to the user to diagnose implementation issues ([Lovable Documentation](https://docs.lovable.dev/features/testing)).",
+    "multi_agent": "Lovable manages complexity using **Subagents** (temporary, read-only agents) that research, inspect, or review focused parts of a task in parallel ([Lovable Documentation](https://docs.lovable.dev/features/subagents)). While Lovable processes one main task at a time, users can batch multiple tasks in a **visible prompt queue**, where they can reorder, edit, or repeat prompts ([Lovable Documentation](https://docs.lovable.dev/features/agent-mode)).",
+    "notifications": "Urgent items bubble up via **in-app alerts**, **badges** (e.g., for unread comments), and an **activity card** in the chat that shows real-time progress of tasks and subagents ([Lovable Documentation](https://docs.lovable.dev/features/subagents), [Lovable Documentation](https://docs.lovable.dev/features/project-comments)). Third-party extensions like \"Lovable Buddy\" provide browser-level notifications when tasks complete ([Chrome Web Store](https://chromewebstore.google.com/detail/lovable-buddy/kgjlhflafdacccepdlebakjkmeohcaek)). For applications built *on* Lovable, it supports multi-channel notification systems including in-app trays, email, and push via integrations like OneSignal ([RapidDev Guide](https://www.rapidevelopers.com/how-to-build-lovable/notification-system)).",
+    "ui_patterns": [
+      "Plan-then-execute (Plan Mode)",
+      "Prompt Queue (batching tasks)",
+      "Activity Card (subagent tracking)",
+      "Artifact Gallery (visual previews)",
+      "Contextual Chat Input (keyboard shortcuts and voice notes)",
+      "Shared Workspaces (team collaboration)"
+    ],
+    "visual_description": "The UI features a **minimalist dashboard** with a central chat interface for \"vibe coding\" (natural language prompting). It includes a **dual-pane view**: a conversational chat on one side and a **live preview/editor** on the other. Key visual elements include: **Activity Cards** that expand to show subagent steps, a **Plan View** showing a structured markdown implementation plan, a **Prompt Queue** at the bottom of the input, and **Project Comment Pins** that anchor feedback to specific UI elements in the preview pane ([Lovable Documentation](https://docs.lovable.dev/features/plan-mode), [Lovable Documentation](https://docs.lovable.dev/features/project-comments)).",
+    "sources": [
+      "https://lovable.dev/",
+      "https://docs.lovable.dev/introduction/welcome",
+      "https://docs.lovable.dev/features/plan-mode",
+      "https://docs.lovable.dev/features/agent-mode",
+      "https://docs.lovable.dev/features/subagents",
+      "https://docs.lovable.dev/features/testing",
+      "https://docs.lovable.dev/features/project-comments"
+    ]
+  },
+  {
+    "entity": "Bolt.new agent interface by StackBlitz",
+    "agent_name": "Bolt.new",
+    "vendor": "StackBlitz",
+    "audience": "Consumer, Prosumer ($25/mo), Developer, and Enterprise ([AIUnpacking](https://aiunpacking.com/review/bolt-new/), [Bolt Documentation](https://support.bolt.new/building/intro-bolt)).",
+    "primary_surface": "Web Application (browser-based, powered by WebContainers) ([Bolt Documentation](https://support.bolt.new/building/intro-bolt)).",
+    "task_lifecycle": "Real-time streaming chat updates showing code generation progress, coupled with a visual \"Version History\" for browsing and restoring previous project states ([Bolt Documentation](https://support.bolt.new/building/intro-bolt), [Release Notes](https://support.bolt.new/release-notes)).",
+    "approval_model": "Hybrid: Auto-executes in \"Build Mode\" but features a \"Plan Mode\" for discussion and refinement before code generation ([Bolt Documentation](https://support.bolt.new/best-practices/discussion-mode)). Users can also use \"Quick Action\" buttons to manually trigger implementations or refine ideas ([Bolt Documentation](https://support.bolt.new/building/using-bolt/interacting-ai)).",
+    "artifacts": "Integrated IDE-like \"Code View\" with a file explorer, real-time live preview window, and one-click publishing to bolt.host or Netlify ([Bolt Documentation](https://support.bolt.new/building/intro-bolt), [Evil Martians](https://evilmartians.com/chronicles/bolt-new-from-stackblitz-how-they-surfed-the-ai-wave-with-no-wipeouts)). Codes can also be synced with GitHub ([Bolt Documentation](https://support.bolt.new/integrations/git)).",
+    "multi_agent": "Allows switching between \"Standard\" and \"Max\" agents based on task complexity ([Bolt Documentation](https://support.bolt.new/building/using-bolt/agents)). Supports real-time multiplayer collaboration, processing one prompt at a time ([Release Notes](https://support.bolt.new/release-notes)).",
+    "notifications": "In-app success confirmations, error alerts, and a notification chime when Bolt completes a task ([Release Notes](https://support.bolt.new/release-notes)). Usage limits are visible in Cloud settings ([Bolt Documentation](https://support.bolt.new/cloud/hosting/plans)).",
+    "ui_patterns": [
+      "Plan-then-execute (Plan/Discussion Mode) ([Bolt Documentation](https://support.bolt.new/best-practices/discussion-mode))",
+      "Visual Selector tool for targeting specific UI elements in the preview ([Bolt Documentation](https://support.bolt.new/building/using-bolt/interacting-ai))",
+      "Prompt Library for saved and built-in prompts ([Bolt Documentation](https://support.bolt.new/building/using-bolt/interacting-ai))",
+      "Integrated Artifacts (combined editor and live preview) ([Evil Martians](https://evilmartians.com/chronicles/bolt-new-from-stackblitz-how-they-surfed-the-ai-wave-with-no-wipeouts))",
+      "Command Palette support (e.g., /clear) ([Bolt Documentation](https://support.bolt.new/building/using-bolt/interacting-ai))"
+    ],
+    "visual_description": "A modern, dark-themed interface. The homepage features a centered prompt box with \"Plan\" and \"Build\" options. Inside a project, it uses a multi-pane layout: a chat interface for AI interaction, a code editor with a file tree (Code View), and a side-by-side live preview window ([Bolt Homepage](https://bolt.new), [Bolt Documentation](https://support.bolt.new/building/intro-bolt)).",
+    "sources": [
+      "Bolt Documentation",
+      "https://support.bolt.new/building/intro-bolt",
+      "Bolt Release Notes",
+      "https://support.bolt.new/release-notes",
+      "Evil Martians Blog",
+      "https://evilmartians.com/chronicles/bolt-new-from-stackblitz-how-they-surfed-the-ai-wave-with-no-wipeouts",
+      "AIUnpacking Review",
+      "https://aiunpacking.com/review/bolt-new/"
+    ]
+  },
+  {
+    "entity": "Cline VS Code agent extension UI",
+    "agent_name": "Cline (formerly Claude Dev)",
+    "vendor": "Saoud Rizwan (Open Source)",
+    "audience": "**Developer / Prosumer.** Designed specifically for software engineers needing autonomous codebase management, terminal execution, and multi-file refactoring ([Vibe Coding](https://vibecoding.app/blog/cline-review-2026)).",
+    "primary_surface": "**IDE Extension (Primary: VS Code).** While it also supports JetBrains, Cursor, and Windsurf, it is most prominent as a VS Code sidebar webview ([Doramagic](https://doramagic.ai/en/projects/cline/manual/)). A standalone **CLI** and **SDK** are also available for terminal-based or programmatic use ([Cline.bot](https://cline.bot/blog/introducing-cline-sdk-the-upgraded-agent-runtime)).",
+    "task_lifecycle": "**Dual-mode timeline.** It uses a **Plan/Act toggle**: **Plan Mode** is for brainstorming and strategy without tool execution, while **Act Mode** executes the plan step-by-step ([Cline.bot](https://docs.cline.bot/core-workflows/plan-and-act)). The lifecycle is visualized as a vertical chat timeline of reasoning \"thoughts\" interspersed with tool execution blocks and approval prompts ([YouTube](https://www.youtube.com/watch?v=f33Fw6NiPpw)).",
+    "approval_model": "**Human-in-the-loop with per-action approval.** By default, Cline requires explicit manual confirmation for every file write, terminal command, and browser action ([Marketplace](https://marketplace.visualstudio.com/items?itemName=saoudrizwan.claude-dev), [DevTools Review](https://devtoolsreview.com/reviews/cline-review/)). It features an **\"Auto-approve\"** toggle that allows the agent to execute specific tools (like reading files or web browsing) or run for a set duration/cost limit without intervention ([YouTube](https://www.youtube.com/watch?v=KjqQC4AnJ1I)).",
+    "artifacts": "**Diff views and integrated tools.** File changes are surfaced via a native VS Code **diff editor**, allowing users to review, modify, or revert changes before saving ([Marketplace](https://marketplace.visualstudio.com/items?itemName=saoudrizwan.claude-dev)). Terminal outputs are streamed directly into the chat or a dedicated terminal instance ([GitHub](https://github.com/cline/cline)). For web tasks, Cline uses a **headless Puppeteer browser**, surfacing screenshots and console logs within the chat interface ([DeployHQ](https://www.deployhq.com/guides/cline)).",
+    "multi_agent": "**Task History and Workspace Profiles.** Multiple tasks are managed through a **Task History** sidebar where users can search, filter, and switch between past conversations ([DataCamp](https://www.datacamp.com/tutorial/cline-ai)). Running parallel agents in separate VS Code windows historically shared the same global state; users often use separate **VS Code Profiles** as a workaround to maintain independent sessions with different models or modes ([GitHub Discussion #1403](https://github.com/cline/cline/discussions/1403)).",
+    "notifications": "**OS-level notifications and in-app alerts.** Cline sends **native system notifications** (toasts) when a long-running task completes or requires user approval ([DeployHQ](https://www.deployhq.com/guides/cline)). Within VS Code, the extension icon in the activity bar can show status badges, and the \"Proceed While Running\" button allows the agent to continue background tasks while notifying the user of new terminal output ([Marketplace](https://marketplace.visualstudio.com/items?itemName=saoudrizwan.claude-dev)).",
+    "ui_patterns": [
+      "Plan-then-Execute (Plan/Act toggle)",
+      "Shadow Git Checkpoints (granular rollbacks)",
+      "Context Mentions (@file, @folder, @url, @problems)",
+      "Bring-Your-Own-Key (BYOK) model selection",
+      "MCP (Model Context Protocol) tool integration"
+    ],
+    "visual_description": "The UI is a **React-based sidebar webview** with a dark-themed chat interface. It features a prominent **Plan/Act toggle** at the bottom, a gear icon for provider settings, and a history icon for task management. Tool calls (like `write_to_file`) appear as collapsible cards with blue/green status indicators. The interface prominently displays **real-time token cost and usage** for the current session ([YouTube](https://www.youtube.com/watch?v=KjqQC4AnJ1I), [Enrico Piovano](https://enricopiovano.com/blog/cline-open-source-ai-coding-agent-deep-dive/)).",
+    "sources": [
+      "VS Code Marketplace (saoudrizwan.claude-dev)",
+      "Cline Official Documentation (cline.bot)",
+      "Cline GitHub Repository (github.com/cline/cline)",
+      "DevTools Review: Cline 2026",
+      "DeployHQ: Cline Setup Guide"
+    ]
+  },
+  {
+    "entity": "Amazon Q Developer agent interface",
+    "agent_name": "Amazon Q Developer Agent Interface",
+    "vendor": "Amazon Web Services (AWS)",
+    "audience": "Primarily **Developers** and **Enterprise teams**, though a **Free Tier** (consumer/prosumer) is available for individual use ([AWS Q Developer Page](https://aws.amazon.com/q/developer/)).",
+    "primary_surface": "**IDE Plugin** (VS Code, JetBrains, Visual Studio, Eclipse) and **Terminal/CLI** are the primary surfaces ([AWS Docs](https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/what-is.html)). It is also available in the **AWS Management Console**, **AWS Console Mobile App**, and via **ChatOps** (Slack, Microsoft Teams) ([AgentsIndex](https://agentsindex.ai/compare/amazon-q-developer-vs-cline)).",
+    "task_lifecycle": "The task lifecycle is visualized as a **step-by-step implementation plan** generated before execution ([AWS Blog](https://aws.amazon.com/blogs/aws/amazon-q-developer-now-generally-available-includes-new-capabilities-to-reimagine-developer-experience/)). Users see a \"logical sequence of implementation steps\" in the chat panel ([RedditTips](https://reddittips.com/2025/02/16/how-to-use-amazon-q-developer-a-complete-introduction/)). Progress is tracked via **real-time updates** and **status indicators** (e.g., \"Amazon Q is thinking...\", \"Generating plan...\") in the chat interface ([AWS Q Developer Page](https://aws.amazon.com/q/developer/)). Advanced users can enable **TODO lists** that automatically track progress within the session ([AWS Docs](https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/command-line-experimental-features.html)).",
+    "approval_model": "Amazon Q Developer follows a **checkpoint-based approval model**. For complex tasks like `/dev` (software development), it generates an **implementation plan** which the user must review and click **\"Generate Code\"** to proceed ([AWS Blog](https://aws.amazon.com/blogs/aws/amazon-q-developer-now-generally-available-includes-new-capabilities-to-reimagine-developer-experience/)). For specific actions like `/test`, `/doc`, or `/review`, it provides a **\"View diff\"** step followed by an **\"Accept\"** or **\"Reject\"** choice ([AWS Blog](https://aws.amazon.com/blogs/aws/new-amazon-q-developer-agent-capabilities-include-generating-documentation-code-reviews-and-unit-tests/)). In the CLI, experimental features include a `/checkpoint` command for turn-level and tool-level manual approvals ([AWS Docs](https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/command-line-experimental-features.html)).",
+    "artifacts": "Artifacts are surfaced through **inline diff views** and **dedicated side tabs** in the IDE. Code changes appear as standard diffs where users can accept or reject individual parts ([AWS Blog](https://aws.amazon.com/blogs/aws/new-amazon-q-developer-agent-capabilities-include-generating-documentation-code-reviews-and-unit-tests/)). Documentation (e.g., READMEs) and unit tests are placed directly into the relevant workspace files for review ([AWS Blog](https://aws.amazon.com/blogs/aws/new-amazon-q-developer-agent-capabilities-include-generating-documentation-code-reviews-and-unit-tests/)). In the CLI, users see real-time streaming token output with ANSI color support for formatting ([GitHub](https://github.com/gabrielkoo/amazon-q-developer-cli-webui)).",
+    "multi_agent": "Multiple parallel runs are managed via **tabbed sessions** in the IDE sidebar. Users can open up to **10 concurrent tabs**, each preserving its own context ([DEV Community](https://dev.to/dmitriy_trunov_9a09a497b1/begin-your-journey-with-amazon-q-developer-4dp)). A \"Delegate\" feature (experimental in CLI) allows launching asynchronous background tasks that can be checked later ([AWS Docs](https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/command-line-experimental-features.html)). Status indicators (e.g., Orange for busy, Cyan for waiting) help track active vs. idle sessions ([Go Dev](https://pkg.go.dev/github.com/izll/agent-session-manager@v0.7.8)).",
+    "notifications": "Urgent items and status updates bubble up through **IDE status bar notifications**, **sidebar badge icons**, and **in-app alerts**. The VS Code status bar shows \"Amazon Q\" activity, and findings from `/review` appear as clickable highlights at the top of the sidebar ([DEV Community](https://dev.to/aws/amazon-q-developer-tips-no20-amazon-q-developer-agents-review-2b6l)). In the CLI, desktop notifications can be enabled via settings ([CSDN Blog](https://blog.csdn.net/gitblog_01141/article/details/151421530)). For enterprise workflows (like CodePipeline integration), email and push notifications via SNS/Lambda are used for manual approvals ([AWS Blog](https://aws.amazon.com/blogs/devops/use-slack-chatops-to-deploy-your-code-how-to-integrate-your-pipeline-in-aws-codepipeline-with-your-slack-channel/)).",
+    "ui_patterns": [
+      "Plan-then-Execute: Agents generate a multi-step plan before making any code changes, requiring user sign-off ([AWS Blog](https://aws.amazon.com/blogs/aws/amazon-q-developer-now-generally-available-includes-new-capabilities-to-reimagine-developer-experience/)).",
+      "Agentic Tabs: Each new agent interaction or /dev request can open in a new tab within the Amazon Q sidebar to maintain isolated session context ([AWS Docs](https://docs.aws.amazon.com/id_id/amazonq/latest/qdeveloper-ug/feature-dev.html)).",
+      "Command Palette: Accessing specific agents (dev, test, doc, review) via slash commands in a chat interface ([AWS Blog](https://aws.amazon.com/blogs/aws/new-amazon-q-developer-agent-capabilities-include-generating-documentation-code-reviews-and-unit-tests/)).",
+      "Workspace Context (@workspace): A pattern where the agent reads the entire project structure and local files to inform its plan ([AWS Build](https://aws.amazon.com/ar/q/developer/build/?nc1=h_ls))."
+    ],
+    "visual_description": "The UI features a **dedicated sidebar** with a chat-centric interface. In the IDE, it uses a **tabbed layout** where each session/agent has its own tab. Plans are visualized as **numbered implementation steps** in the chat stream, often with a \"Continue\" or \"Generate Code\" button at the bottom ([AWS Blog](https://aws.amazon.com/blogs/aws/amazon-q-developer-now-generally-available-includes-new-capabilities-to-reimagine-developer-experience/)). Code diffs are rendered in a **split-screen view** or as inline suggestions with 'Accept/Reject' overlays. The theme is typically dark (consistent with IDE themes) using **orange activity indicators** for processing and **cyan for waiting** on user input ([Go Dev](https://pkg.go.dev/github.com/izll/agent-session-manager@v0.7.8)). findings from reviews are highlighted above the chat window or in the \"Problems\" tab ([DEV Community](https://dev.to/aws/amazon-q-developer-tips-no20-amazon-q-developer-agents-review-2b6l)).",
+    "sources": [
+      "AWS Q Developer Features",
+      "AWS Q Developer Documentation",
+      "Amazon Q Developer - software development agent docs",
+      "AWS Blog - New agent capabilities",
+      "AWS Blog - Agentic coding experience",
+      "DEV Community - Review agent tips",
+      "DEV Community - Journey with Q Developer",
+      "CSDN - Q CLI theme and notifications"
+    ]
+  },
+  {
+    "entity": "LangGraph Studio interface",
+    "agent_name": "LangGraph Studio interface",
+    "vendor": "LangChain / LangChain AI",
+    "audience": "Primarily **Developers** (as a specialized IDE) and **Enterprise/Prosumer** stakeholders (via the simplified Chat Mode and Agent Inbox for approvals) [LangChain Blog](https://www.langchain.com/blog/langgraph-studio-the-first-agent-ide), [DataCamp Tutorial](https://www.datacamp.com/tutorial/langgraph-studio).",
+    "primary_surface": "Available as a **Desktop Application** (Apple Silicon) and a **Web Application** integrated into the LangSmith platform [LangChain Blog](https://www.langchain.com/blog/langgraph-studio-the-first-agent-ide), [LangSmith Docs](https://docs.langchain.com/langsmith/quick-start-studio).",
+    "task_lifecycle": "Visualized through a **live-updating graph topology** where the active node pulses. A **History Panel** lists every checkpoint (state snapshot), allowing users to \"time travel\" by clicking any past step to inspect or modify the state at that specific moment [LangChain Blog](https://www.langchain.com/blog/langgraph-studio-the-first-agent-ide), [Fastio Review](https://fast.io/resources/top-tools-langgraph/).",
+    "approval_model": "Utilizes an **interruption mechanism** (`interrupt()` function) that pauses graph execution and persists state. Humans can then **Approve, Edit, Respond, or Ignore** tasks through the Studio UI or a dedicated **Agent Inbox**. Once a human provides input via the `Command` object, the graph resumes from the paused state [LangChain Blog](https://www.langchain.com/blog/langgraph-studio-the-first-agent-ide), [Agent Inbox Docs](https://github.com/langchain-ai/agent-inbox).",
+    "artifacts": "Artifacts such as tool calls, state updates, and generated messages are surfaced in a **side-by-side view** (Chat on left/center, State/History on right). It supports **Generative UI**, allowing developers to register and render custom React components or images (base64) directly within the thread using `push_ui_message` [LangChain Reference](https://reference.langchain.com/python/langgraph/graph/ui/push_ui_message), [Developer Video](https://www.youtube.com/watch?v=sCqN01R8nIQ).",
+    "multi_agent": "Visualizes parallel agents as **branching paths (fan-out/fan-in)** in the graph diagram. It manages independent runs through **Threads**, accessible via a dropdown or sidebar, allowing users to switch between different agent sessions without interference [AI Advances](https://ai.gopubby.com/langgraph-studio-visualizing-and-testing-ai-agents-with-langchain-9a6fe80d2643), [Elite AI Advantage](https://eliteaiadvantage.com/blog/run-multiple-ai-agents-parallel-langgraph).",
+    "notifications": "LangGraph does **not have native push/email notifications**; it persists the \"interrupted\" state in a checkpointer. Developers must implement notification layers (e.g., Slack/Email webhooks) or use the **Agent Inbox** web app as a centralized \"Command Center\" to monitor pending items [The Handover](https://thehandover.xyz/blog/langgraph-human-in-the-loop-tutorial), [Agent Inbox Readme](https://github.com/langchain-ai/agent-inbox).",
+    "ui_patterns": [
+      "Time-travel debugging (rewind, edit state, and fork)",
+      "Live graph pulsing (active node visualization)",
+      "Agent Inbox (ticketing-style queue for human tasks)",
+      "Generative UI (rendering custom components in-stream)",
+      "Hot-reloading (auto-update UI on code changes)"
+    ],
+    "visual_description": "The UI features a **dual-pane layout**: the left pane displays an interactive **Directed Acyclic Graph (DAG)** where nodes are boxes and edges are arrows (pulsing to show current execution). The right pane contains a **threaded history** of checkpoints, a state inspector, and the chat interface. It includes a 'debug mode' for step-by-step walkthroughs [The Planet Tools](https://theplanettools.ai/tools/langgraph), [YouTube Teardown](https://www.youtube.com/watch?v=oWHTXTIy3J4).",
+    "sources": [
+      "LangGraph Studio Blog](https://www.langchain.com/blog/langgraph-studio-the-first-agent-ide),",
+      "Agent Inbox GitHub](https://github.com/langchain-ai/agent-inbox),",
+      "LangGraph Documentation](https://studio.langchain.com),",
+      "LangSmith Studio Quick Start](https://docs.langchain.com/langsmith/quick-start-studio)"
+    ]
+  },
+  {
+    "entity": "OpenHands (formerly OpenDevin) UI",
+    "agent_name": "OpenHands (formerly OpenDevin) UI / Agent Canvas",
+    "vendor": "All Hands AI",
+    "audience": "Developer / Enterprise (supports open-source local use, cloud-managed, and self-hosted enterprise VPC deployments) [OpenHands Docs](https://docs.openhands.dev/overview/introduction).",
+    "primary_surface": "Browser-based web application (Agent Canvas) driven by a local or cloud backend server. Also includes a CLI and Chrome extension [OpenHands Docs](https://docs.openhands.dev/openhands/usage/agent-canvas/overview).",
+    "task_lifecycle": "Visualized through a chronological 'Chat Panel' (timeline) where the agent explains actions, paired with a 'Task Tracker' (introduced in v1.0.0). Model-switch events and critic results are also interleaved in the timeline [OpenHands Docs](https://docs.openhands.dev/openhands/usage/agent-canvas/llm-profiles).",
+    "approval_model": "Hybrid: Autonomous execution with a \"Critic\" evaluation pass. The Critic predicts success likelihood (score-based) and can trigger \"Iterative Refinement\" (auto-retry) or surface issues for human review in the timeline. Users can also manually intervene through the chat interface [OpenHands Docs](https://docs.openhands.dev/openhands/usage/agent-canvas/critic).",
+    "artifacts": "Artifacts are surfaced via a multi-tabbed interface: a 'Changes Tab' for file diffs, an embedded 'VS Code' instance for browsing/modifying code, a 'Terminal Tab' for shell output, and a 'Browser Tab' for agent web-browsing (non-interactive) [OpenHands Docs](https://docs.openhands.dev/openhands/usage/key-features).",
+    "multi_agent": "Managed via 'Agent Canvas' which allows switching between the built-in OpenHands agent and external ACP agents (Claude Code, Gemini CLI, etc.). OpenHands Cloud/Enterprise adds multi-user collaboration, RBAC, and usage reporting [OpenHands Docs](https://docs.openhands.dev/openhands/usage/agent-canvas/acp-agents).",
+    "notifications": "Urgent items and updates bubble up via external integrations (Slack, Jira, Linear, GitHub issues) and in-app success-likelihood scores from the Critic. Automations can be configured to send alerts to Slack or GitHub for specific triggers (e.g., SSL expiry, backup failure) [OpenHands Docs](https://docs.openhands.dev/openhands/usage/automations/overview).",
+    "ui_patterns": [
+      "Embedded IDE (VS Code)",
+      "Multi-tab artifact gallery (Changes, Code, Terminal, Browser)",
+      "Critic-driven refinement loop",
+      "Natural language automation creation",
+      "MCP (Model Context Protocol) integration platform"
+    ],
+    "visual_description": "The UI features a left-hand navigation sidebar (Conversations, Automate, Customize, Settings) and a main workspace split between a chat/timeline panel on the left and a tabbed 'Canvas' viewing area on the right. The Canvas displays the code editor, terminal, and browser. A status bar at the bottom shows the active backend, repository, and branch [OpenHands Docs](https://docs.openhands.dev/openhands/usage/key-features).",
+    "sources": [
+      "OpenHands Docs: Introduction (https://docs.openhands.dev/overview/introduction)",
+      "OpenHands Docs: Agent Canvas Overview (https://docs.openhands.dev/openhands/usage/agent-canvas/overview)",
+      "OpenHands Docs: Key Features (https://docs.openhands.dev/openhands/usage/key-features)",
+      "OpenHands Docs: Critic Configuration (https://docs.openhands.dev/openhands/usage/agent-canvas/critic)",
+      "OpenHands Docs: ACP Agents (https://docs.openhands.dev/openhands/usage/agent-canvas/acp-agents)",
+      "OpenHands Docs: Automations (https://docs.openhands.dev/openhands/usage/automations/overview)"
+    ]
+  },
+  {
+    "entity": "Continue.dev agent interface",
+    "agent_name": "Continue.dev Agent Interface / Mission Control",
+    "vendor": "Continue.dev (acquired by Cursor/Anysphere)",
+    "audience": "**Target audience** ranges from individual **consumers (developers)** using the open-source IDE extensions to **prosumer/enterprise teams** utilizing \"Mission Control\" for organization-wide AI workflows and standardizing development standards. [Continue Docs](https://docs.continue.dev), [Continue Blog](https://blog.continue.dev/what-are-continue-agents-any-workflow-your-teams-way/)",
+    "primary_surface": "The **primary surfaces** include a **VS Code/JetBrains IDE plugin** for interactive work, a **CLI (cn)** with both TUI (Terminal UI) and headless modes for terminal users and CI/CD, and a **Web App (Mission Control)** at hub.continue.dev for cloud agent management and monitoring. [Continue Docs](https://docs.continue.dev/overview), [Vibe Coding](https://vibecoding.app/blog/continue-dev-review)",
+    "task_lifecycle": "**Task lifecycles** are visualized via a **step-by-step tool handshake** in the IDE chat stream and a **comprehensive timeline view** in Mission Control. The timeline tracks the exact execution path, including tool calls, reasoning traces, and timing for each session. Users can move from \"triage\" to \"investigate\" to \"fix\" within a single unified session view. [Continue Docs](https://docs.continue.dev/ide-extensions/agent/how-it-works), [Continue Blog](https://blog.continue.dev/introducing-mission-control-your-ai-dashboard/)",
+    "approval_model": "**Human-in-the-loop** features a three-tier policy: **\"Ask First\"** (default) requires manual confirmation via \"Continue\" or \"Cancel\" buttons for each tool call; **\"Automatic\"** allows for autonomous execution (recommended for read-only tools); and **\"Excluded\"** prevents tool use entirely. Approvals in the IDE are handled through checkpoint buttons in the chat stream. [Continue Docs](https://docs.continue.dev/ide-extensions/agent/how-to-customize), [Continue Blog](https://blog.continue.dev/introducing-mission-control-your-ai-dashboard/)",
+    "artifacts": "**Artifacts** like code diffs are surfaced through an **inline side-by-side diff view** directly in the IDE chat panel or as **GitHub Pull Requests** for background agents. Mission Control provides a centralized view of generated engineering artifacts, including PRs, issues, and documentation updates. [BetterStack Guide](https://betterstack.com/community/guides/ai/continue-dev-ai/), [Continue Docs](https://docs.continue.dev/mission-control)",
+    "multi_agent": "**Parallelism** is managed through **Mission Control**, which acts as an orchestration layer for cloud agents. It tracks active runs, logs, and outcomes across multiple projects and repositories. The system also supports **parallel tool calling**, where a single agent can initiate multiple independent operations simultaneously to increase speed. [Continue Blog](https://blog.continue.dev/parallel-tool-calling/), [Continue Docs](https://docs.continue.dev/hub/agents/overview)",
+    "notifications": "**Urgent items** bubble up through the **Mission Control Inbox**, which serves as a unified queue for Sentry alerts, Snyk vulnerabilities, and CI failures. Real-time alerts are also pushed to developers via **Slack and GitHub mentions** (e.g., @Continue), allowing agents to be triggered directly from conversation threads. [Continue Blog](https://blog.continue.dev/introducing-mission-control-your-ai-dashboard/), [Continue Docs](https://docs.continue.dev/changelog)",
+    "ui_patterns": [
+      "Plan-then-execute (via \"Plan Mode\" for read-only exploration before switching to \"Agent Mode\" for implementation)",
+      "Agent Inbox (a central triage queue for tasks and alerts)",
+      "Command Palette integration (cycling modes with Cmd/Ctrl + .)",
+      "Thinking Tags (visual indicators that dim text/tags while the agent is processing)",
+      "Opportunities View (surfacing high-confidence 'quick-fix' wins from tool signals like Sentry)"
+    ],
+    "visual_description": "The **UI** is characterized by a clean, modern dashboard in Mission Control with a **left-hand navigation sidebar** (Inbox, Tasks, Agents, Integrations) and a central workspace. In the IDE, it manifests as a **chat sidebar** with a mode selector (Chat, Plan, Agent) at the bottom. Visual cues include **'Thinking' tags** that dim during processing, **streaming tool call blocks** with 'Continue' buttons, and a **waterfall-style timeline** in the monitoring view that shows the execution path and timing for every agent run. [Continue Docs](https://docs.continue.dev/mission-control), [YouTube walkthrough](https://www.youtube.com/watch?v=mE-RwXpEiqQ)",
+    "sources": [
+      "Continue Docs: Mission Control",
+      "Continue Blog: Introducing Mission Control",
+      "Continue Blog: What Are Continue Agents?",
+      "Continue Docs: How Agent Mode Works",
+      "Vibe Coding: Continue.dev Review 2026"
+    ]
+  },
+  {
+    "entity": "CrewAI Studio interface",
+    "agent_name": "CrewAI Studio interface",
+    "vendor": "CrewAI Inc.",
+    "audience": "Enterprise and Developers ([CrewAI Documentation](https://docs.crewai.com/en/enterprise/introduction)). It is marketed as an interactive, AI-assisted workspace for \"vibe coding AI Agents\" without writing code, though it integrates deeply with developer workflows via ZIP downloads and API/Webhook support ([CrewAI Documentation](https://docs.crewai.com/en/enterprise/features/crew-studio)).",
+    "primary_surface": "Web App (CrewAI AMP Dashboard at app.crewai.com) ([CrewAI Documentation](https://docs.crewai.com/en/enterprise/features/crew-studio)). It also supports a CLI for local development and can be self-hosted as a Streamlit-based GUI ([GitExtract](https://gitextract.com/strnad/CrewAI-Studio)).",
+    "task_lifecycle": "The task lifecycle is visualized through an **Execution View** featuring an **Event Timeline** (Gantt-style view showing task durations) and **Detailed Logs**. The logs include 'Messages' for agent communication and 'Raw Data' for JSON-level inspection ([CrewAI Documentation](https://docs.crewai.com/en/enterprise/features/traces)). A 'Status' tab in the dashboard shows the lifecycle of a deployment (Online, Failed, In Progress) ([CrewAI Documentation](https://docs.crewai.com/en/enterprise/features/automations)).",
+    "approval_model": "The approval model features a **Human-in-the-Loop (HITL)** system with two primary modes: **email-first** and **dashboard-based**. In the email-first approach, responders can reply directly to notification emails to provide feedback or approve actions without logging into the platform ([CrewAI Documentation](https://docs.crewai.com/en/enterprise/guides/human-in-the-loop)). In the dashboard, the system pauses in a **'Pending Human Input'** state, allowing users to review task outputs and submit feedback via a text interface to either proceed or request a retry with added context ([CrewAI Documentation](https://docs.crewai.com/en/enterprise/guides/human-in-the-loop)).",
+    "artifacts": "Artifacts are surfaced through a dedicated **Artifacts tab** in the execution view and an **artifact gallery**. Users can preview or download files produced during a run (e.g., Markdown reports, JSON data). Additionally, real-time artifact events are emitted during execution, allowing for streaming notifications of generated files ([Crewship Documentation](https://docs.crewship.dev/guides/artifacts)). Once published, automations can also be exported as **React Components** or **MCP servers** ([CrewAI Documentation](https://docs.crewai.com/en/enterprise/features/crew-studio)).",
+    "multi_agent": "Parallel agents are managed via an **Execution Timeline** that provides a visual Gantt-chart representation of concurrent task runs. The UI allows users to identify bottlenecks by showing when each agent started and ended its specific task ([CrewAI Documentation](https://docs.crewai.com/en/enterprise/features/traces)). For configuration, users can toggle **async_execution** on individual tasks to enable parallel processing within a crew ([DigitalOcean](https://www.digitalocean.com/community/tutorials/crewai-crash-course-role-based-agent-orchestration)).",
+    "notifications": "Urgent items bubble up through an **email-first notification system** for HITL requests, where users receive direct links or can reply to emails. In-app, the platform uses an **Alert Configuration Panel** to define criteria for task deadlines and priority levels ([Restackio](https://www.restack.io/p/crewai-answer-crew-alerting-system-cat-ai)). Visual cues like **status badges** (Critical, Warning, Healthy) and a **Sankey diagram** in the monitoring dashboard highlight automation health issues ([CrewAI Documentation](https://docs.crewai.com/en/enterprise/features/agent-control-plane/monitoring)).",
+    "ui_patterns": [
+      "Vibe coding (AI-assisted natural language design)",
+      "Node-and-edge visual canvas for workflow mapping",
+      "Side-by-side 'AI Thoughts' streaming reasoning panel",
+      "Execution vs. Visual Editor toggle view",
+      "Artifact gallery for generated file management",
+      "Email-first human-in-the-loop responses"
+    ],
+    "visual_description": "The UI consists of a central **Visual Canvas** where agents and tasks are represented as connected nodes (nodes and edges). It is flanked by three main panels: **AI Thoughts (left)** showing streaming reasoning during design, **Canvas (center)** for the workflow graph, and **Resources (right)** for dragging-and-dropping agents, tasks, and tools ([CrewAI Documentation](https://docs.crewai.com/en/enterprise/features/crew-studio)). The 'Execution View' features an **Event Timeline**, detailed logs (Messages, Raw Data), and high-level execution metrics (Total Tokens, Estimated Cost) at the top ([CrewAI Documentation](https://docs.crewai.com/en/enterprise/features/traces)).",
+    "sources": [
+      "https://docs.crewai.com/en/enterprise/features/crew-studio",
+      "https://docs.crewai.com/en/enterprise/guides/human-in-the-loop",
+      "https://docs.crewai.com/en/enterprise/features/traces",
+      "https://docs.crewship.dev/guides/artifacts",
+      "https://docs.crewai.com/en/enterprise/features/agent-control-plane/monitoring"
+    ]
+  },
+  {
+    "entity": "AutoGen Studio Microsoft interface",
+    "agent_name": "AutoGen Studio",
+    "vendor": "Microsoft Research",
+    "audience": "Primarily targeted at developers for rapid prototyping, but also accessible to prosumers and researchers as a low-code/no-code interface ([Microsoft Research](https://www.microsoft.com/en-us/research/blog/introducing-autogen-studio-a-low-code-interface-for-building-multi-agent-workflows/), [GitHub](https://github.com/microsoft/autogen)).",
+    "primary_surface": "Web application (built with FastAPI and React) ([GitHub](https://github.com/microsoft/autogen/tree/main/python/packages/autogen-studio)).",
+    "task_lifecycle": "Visualized through live message streaming, a \"control transition graph\" showing speaker transitions, and a session-based chat history. It also includes an \"inner monologue\" debug console for monitoring agent reasoning ([AutoGen Docs](https://microsoft.github.io/autogen/dev/user-guide/autogenstudio-user-guide/index.html), [YouTube: Introduction to AutoGen Studio v0.4](https://www.youtube.com/watch?v=oum6EI7wohM)).",
+    "approval_model": "Human-in-the-loop is managed via the `UserProxyAgent` and `human_input_mode` settings (ALWAYS, TERMINATE, NEVER). In \"ALWAYS\" mode, the UI pauses execution and prompts the user for feedback or approval before proceeding. New v0.4 features include \"Run Control,\" allowing users to manually pause or stop execution mid-run ([Microsoft Research](https://www.microsoft.com/en-us/research/blog/introducing-autogen-studio-a-low-code-interface-for-building-multi-agent-workflows/), [AutoGen Docs](https://microsoft.github.io/autogen/dev/user-guide/autogenstudio-user-guide/usage.html)).",
+    "artifacts": "Artifacts such as generated images, code blocks, text files, and performance metrics (token usage, cost) are surfaced directly within the Playground chat sessions. Users can also publish successful sessions to a \"Gallery\" for reference and reuse ([Microsoft Research Blog](https://www.microsoft.com/en-us/research/blog/introducing-autogen-studio-a-low-code-interface-for-building-multi-agent-workflows/), [AutoGen Docs](https://microsoft.github.io/autogen/dev/user-guide/autogenstudio-user-guide/usage.html)).",
+    "multi_agent": "Managed through independent \"Sessions\" (UUID-based threads) in the Playground. Users can spin up multiple sessions to test different teams or tasks in parallel ([YouTube: AutoGen Studio on Kubernetes](https://www.youtube.com/watch?v=-zwvvgORcp0), [AutoGen Usage](https://microsoft.github.io/autogen/dev/user-guide/autogenstudio-user-guide/usage.html)).",
+    "notifications": "Urgent items bubble up via real-time streaming updates in the chat interface. \"Approval Required\" states intercept agent control and present interactive feedback prompts to the user within the active session ([Microsoft Learn](https://learn.microsoft.com/fr-fr/agent-framework/integrations/ag-ui/human-in-the-loop), [AutoGen Docs](https://microsoft.github.io/autogen/dev/user-guide/autogenstudio-user-guide/usage.html)).",
+    "ui_patterns": [
+      "Visual drag-and-drop workflow builder",
+      "JSON-to-UI declarative specification toggle",
+      "Session-based chat playground (ChatGPT-like)",
+      "Component library/gallery for agents and skills"
+    ],
+    "visual_description": "The UI features a modern dark/light mode interface with a primary sidebar for navigating between Build, Playground, and Gallery. The Build section uses a node-based canvas for agent team composition, while the Playground resembles a standard AI chat interface with a sidebar for session history and a main window for live message streaming and artifact viewing ([AutoGen Usage Screenshots](https://microsoft.github.io/autogen/dev/user-guide/autogenstudio-user-guide/usage.html)).",
+    "sources": [
+      "Microsoft Research Blog: Introducing AutoGen Studio",
+      "AutoGen Studio Documentation (Usage)",
+      "AutoGen Studio GitHub Repository",
+      "Microsoft Learn: Human-in-the-loop with AG-UI"
+    ]
+  },
+  {
+    "entity": "SWE-agent Princeton interface",
+    "agent_name": "SWE-agent (Princeton University)",
+    "vendor": "Princeton NLP Group",
+    "audience": "Developer / Researcher",
+    "primary_surface": "Web App (React/Flask) and CLI [Princeton NLP](https://princeton-nlp.github.io/SWE-agent/usage/web_ui/).",
+    "task_lifecycle": "Visualized through a 'Trajectory Viewer' that displays the agent's step-by-step history (Thought, Action, Observation) in a chronological timeline [CSDN](https://blog.csdn.net/gitblog_00818/article/details/151412736).",
+    "approval_model": "Largely autonomous (loops until submission or fatal error), with \"Interactive Mode\" enabling interactive tools like gdb. Quality Gates (linter integration) act as hard pre-action checkpoints that block syntactically incorrect edits before application [CSDN](https://blog.csdn.net/gitblog_00818/article/details/151412736), [Princeton NLP Docs](https://princeton-nlp.github.io/SWE-agent/usage/web_ui/).",
+    "artifacts": "Artifacts are surfaced via a specialized 100-line windowed file viewer, a dedicated image viewer for multimodal screenshots, and final code diffs. Trajectories are stored as `.traj` files and visualized in the Inspector [Princeton NLP](https://princeton-nlp.github.io/SWE-agent/usage/inspector/), [arXiv](https://arxiv.org/pdf/2405.15793.pdf).",
+    "multi_agent": "Batch mode allows running instances in parallel; the Trajectory Inspector provides a dashboard for browsing, filtering, and comparing results across hundreds of runs [Princeton NLP](https://princeton-nlp.github.io/SWE-agent/usage/batch_mode/).",
+    "notifications": "Status is primarily surfaced through live log streaming and visual evaluation badges (\u2705/\u274c/\u2753) in the inspector dashboard [Princeton NLP Docs](https://swe-agent.com/latest/usage/inspector/).",
+    "ui_patterns": [
+      "Agent-Computer Interface (ACI) philosophy (minimalist command set)",
+      "Trajectory Viewer (post-run analysis)",
+      "Split-screen action-observation loop",
+      "Interactive debugging (gdb integration)"
+    ],
+    "visual_description": "The UI features a multi-column layout. The top section contains configuration parameters (Issue URL, model selection). The bottom-left pane displays the agent's 'Thought' process, while the top-right pane shows the terminal environment (commands and output). A dedicated 'Logs' area is at the bottom right. The Trajectory Viewer includes a file sidebar for navigating multiple runs [CSDN](https://blog.csdn.net/gitblog_00818/article/details/151412736), [Issue #213](https://github.com/princeton-nlp/SWE-agent/issues/213).",
+    "sources": [
+      "Princeton NLP Documentation](https://princeton-nlp.github.io/SWE-agent/usage/web_ui/),"
+    ]
+  },
+  {
+    "entity": "AutoGPT platform interface",
+    "agent_name": "AutoGPT Platform (Beta)",
+    "vendor": "Significant Gravitas",
+    "audience": "Developer and Prosumer (low-code) [DataCamp](https://www.datacamp.com/tutorial/autogpt-guide), [GitHub](https://github.com/significant-gravitas/autogpt).",
+    "primary_surface": "Web Application (Next.js/React frontend) with a supporting CLI for developer setup [GitHub](https://github.com/significant-gravitas/autogpt), [Pyshine](https://pyshine.com/2026/04/20/autogpt-platform-continuous-ai-agents/).",
+    "task_lifecycle": "Visualized through a **step-by-step reasoning log** (Copilot view) and a **real-time execution graph** where active blocks pulse or change color based on their state (e.g., green for success, red for error) [DataCamp](https://www.datacamp.com/tutorial/autogpt-guide), [Medium](https://aiedge.medium.com/autogpt-forge-interacting-with-your-agent-1214561b06b). Historical runs are tracked in a **\"Tasks\" tab** that displays a timeline of past executions and their outcomes [AutoGPT Docs](https://agpt.co/docs/platform/using-the-platform/agent-library).",
+    "approval_model": "The platform supports **continuous mode** for full autonomy, but defaults to a **human-in-the-loop** model where the agent pauses for input at \"Input Blocks\" or when calling the \"ask\" command for manual confirmation [AutoGPT Docs](https://agpt.co/docs/platform/tutorials/create-basic-agent), [Lablab.ai](https://lablab.ai/ai-tutorials/auto-gpt-forge-tutorial). Users can also run agents step-by-step by manually approving each thought/action with a \"y\" input [Medium](https://aiedge.medium.com/autogpt-forge-interacting-with-your-agent-1214561b06b).",
+    "artifacts": "Artifacts such as generated files, code, and images are surfaced as **rich cards** or **inline previews** within the chat-like interaction pane [DataCamp](https://www.datacamp.com/tutorial/autogpt-guide). A dedicated **\"Agent Outputs\"** pane consolidates structured results from multiple blocks, and users can click \"View More\" to see full execution logs and file outputs [AutoGPT Docs](https://agpt.co/docs/platform/using-the-platform/agent-library).",
+    "multi_agent": "Multiple agents can be orchestrated as a **multi-agent system** by importing an existing agent as a \"block\" into a new workflow [AutoGPT Docs](https://agpt.co/docs/platform/agent-blocks). The **Monitoring Dashboard** provides a bird's-eye view of active executions, latency, and resource consumption across all running agents [Mutable.ai](https://mutable.ai/Significant-Gravitas/AutoGPT), [Pyshine](https://pyshine.com/2026/04/20/autogpt-platform-continuous-ai-agents/).",
+    "notifications": "Urgent items and status updates bubble up via **in-app notification badges** (bell icon) and real-time status icons (green checkmarks for success, rotating circles for in-progress) [Medium](https://aiedge.medium.com/autogpt-forge-interacting-with-your-agent-1214561b06b). The platform also supports **email notifications** for failed tasks or run completions, which can be configured within the agent's settings [AutoGPT Releases](https://github.com/Significant-Gravitas/AutoGPT/releases).",
+    "ui_patterns": [
+      "Low-code block-based workflow editor (Directed Acyclic Graph)",
+      "Agent as a Block (nesting agents within other workflows)",
+      "Marketplace-driven discovery with cards and ratings",
+      "Agent Library for personal agent management",
+      "Real-time monitoring dashboard with execution metrics"
+    ],
+    "visual_description": "The UI is a canvas-based **graph editor** with a large workspace for dragging and dropping \"blocks\" (nodes) connected by \"wires\" (data flows) [DataCamp](https://www.datacamp.com/tutorial/autogpt-guide). It features a dark-themed sidebar with icons for **Tasks, Library, Marketplace, and Settings** [AutoGPT Docs](https://agpt.co/docs/platform/using-the-platform/agent-library). The execution view resembles a chat interface (Copilot) where reasoning traces and outputs appear in a chronological feed, while property panels on the right allow for granular block configuration [Medium](https://aiedge.medium.com/autogpt-forge-interacting-with-your-agent-1214561b06b).",
+    "sources": [
+      "AutoGPT GitHub Repository](https://github.com/significant-gravitas/autogpt)",
+      "AutoGPT Platform Documentation](https://agpt.co/docs/platform)",
+      "DataCamp Guide to AutoGPT](https://www.datacamp.com/tutorial/autogpt-guide)",
+      "Lablab.ai AutoGPT Tutorial](https://lablab.ai/ai-tutorials/auto-gpt-forge-tutorial)",
+      "Pyshine Platform Analysis](https://pyshine.com/2026/04/20/autogpt-platform-continuous-ai-agents/)"
+    ]
+  },
+  {
+    "entity": "Block Goose agent interface",
+    "agent_name": "Goose (Block / AAIF)",
+    "vendor": "Agentic AI Foundation (AAIF) / Linux Foundation (originally Block / Square)",
+    "audience": "Developer / Prosumer ([Andrew.ooo](https://andrew.ooo/posts/goose-review-open-source-ai-agent-block/), [Goose Docs](https://goose-docs.ai/docs/quickstart))",
+    "primary_surface": "Native Desktop App (macOS, Linux, Windows), CLI, and API. It also functions as an **ACP (Agent Client Protocol) server** for IDEs like VS Code, Zed, and JetBrains ([GitHub](https://github.com/aaif-goose/goose), [Goose Docs](https://goose-docs.ai/docs/guides/acp-clients)).",
+    "task_lifecycle": "The task lifecycle is visualized through a **step-by-step chat history** in the Desktop app and a **real-time dashboard** in the CLI for parallel runs, which shows task IDs, parameter sets, execution timing, and output previews ([Goose Docs](https://goose-docs.ai/docs/tutorials/subrecipes-in-parallel/#real-time-progress-monitoring)). Users can monitor progress through statistics of completed, running, failed, and pending tasks.",
+    "approval_model": "Goose uses a **permission-based model** where users configure fine-grained tool permissions and allowlists ([Goose Docs](https://goose-docs.ai/docs/guides/managing-tools/tool-permissions)). It features an **Adversary Mode**, an independent reviewer agent that monitors tool calls for rogue behavior ([Goose Docs](https://goose-docs.ai/docs/guides/security/adversary-mode)), and **Prompt Injection Detection** to block harmful commands before execution ([Goose Docs](https://goose-docs.ai/docs/guides/security/prompt-injection-detection)).",
+    "artifacts": "Artifacts like code diffs, generated files, and screenshots (via the screen toolkit) are surfaced directly within the **interactive chat** ([Goose Docs](https://goose-docs.ai/docs/guides/interactive-chat/)). It supports **MCP-UI and MCP Apps**, allowing agents to render rich graphical components like charts or custom interactive UIs inside the session ([Goose Blog](https://goose-docs.ai/blog/2026/01/06/mcp-apps)).",
+    "multi_agent": "Goose manages multiple runs through **named sessions** stored in a local SQLite database ([Goose Docs](https://goose-docs.ai/docs/guides/logs/#session-records)). It can spawn **parallel subagents** and run **subrecipes in parallel** using isolated worker processes (up to 10 concurrently), monitored via a real-time CLI dashboard ([Goose Docs](https://goose-docs.ai/docs/tutorials/subrecipes-in-parallel)).",
+    "notifications": "Urgent security findings (labeled `SEC-{uuid}`) bubble up as **in-app alerts** requiring explicit allow/deny decisions from the user ([Goose Docs](https://goose-docs.ai/docs/guides/logs/#system-logs)). Real-time progress stats (completed/running/failed) are shown during parallel batch runs in the CLI ([Goose Docs](https://goose-docs.ai/docs/tutorials/subrecipes-in-parallel/#real-time-progress-monitoring)).",
+    "ui_patterns": [
+      "Research-Plan-Implement (RPI) pattern for complex tasks",
+      "Recipe Cookbook for reusable YAML workflows",
+      "MCP-UI for rendering interactive graphical apps in-chat",
+      "Real-time parallel execution dashboard in CLI",
+      "Customizable tile/list-style navigation sidebar"
+    ],
+    "visual_description": "The Desktop UI features a clean, modern aesthetic with a **customizable sidebar** that can be positioned on any edge (default left) and toggled between Tile (large icons) or List styles ([Goose Docs](https://goose-docs.ai/docs/guides/desktop-navigation)). The main surface is a chat-centric interface that supports **dark mode** and is capable of rendering rich, non-textual **MCP-UI components** like seat selectors or data visualizations directly in the message flow ([Goose Docs](https://goose-docs.ai/docs/guides/interactive-chat/mcp-ui)).",
+    "sources": [
+      "https://github.com/aaif-goose/goose",
+      "https://goose-docs.ai/docs/category/guides",
+      "https://andrew.ooo/posts/goose-review-open-source-ai-agent-block/",
+      "https://goose-docs.ai/blog/2026/01/06/mcp-apps"
+    ]
+  }
+]
